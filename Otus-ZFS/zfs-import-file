@@ -1,0 +1,131 @@
+Script started on 2021-11-16 15:33:14+02:00 [TERM="xterm-256color" TTY="/dev/pts/1" COLUMNS="113" LINES="53"]
+[?2004h]0;vedoff@nvf: /VML-pool/git/Otus-ZFS[01;32mvedoff@nvf[00m:[01;34m/VML-pool/git/Otus-ZFS[00m$ vagrant ssh
+[?2004lLast login: Tue Nov 16 13:32:26 2021 from 10.0.2.2
+]0;vagrant@zfs-01:~[?1034h[vagrant@zfs-01 ~]$ sudo -i
+]0;root@zfs-01:~[?1034h[root@zfs-01 ~]# cd [K[K[Klsblk
+NAME            MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+sda               8:0    0  10G  0 disk 
+├─sda1            8:1    0   1G  0 part /boot
+└─sda2            8:2    0   9G  0 part 
+  ├─centos-root 253:0    0   8G  0 lvm  /
+  └─centos-swap 253:1    0   1G  0 lvm  [SWAP]
+sdb               8:16   0   1G  0 disk 
+sdc               8:32   0   1G  0 disk 
+sdd               8:48   0   1G  0 disk 
+sde               8:64   0   1G  0 disk 
+]0;root@zfs-01:~[root@zfs-01 ~]# zfs list
+no datasets available
+]0;root@zfs-01:~[root@zfs-01 ~]# zfs import -d /provision/[1P[1P[1P[1@z[1@p[1@o[1@o[1@l
+   pool: otus
+     id: 6554193320433390805
+  state: ONLINE
+status: Some supported features are not enabled on the pool.
+ action: The pool can be imported using its name or numeric identifier, though
+	some features will not be available without an explicit 'zpool upgrade'.
+ config:
+
+	otus                  ONLINE
+	  mirror-0            ONLINE
+	    /provision/filea  ONLINE
+	    /provision/fileb  ONLINE
+]0;root@zfs-01:~[root@zfs-01 ~]# zpool import -d /provision/[K[K[K[K[K[K[K[K[K[K[K[K[K[Kotus
+cannot import 'otus': no such pool available
+]0;root@zfs-01:~[root@zfs-01 ~]# zpool upgar[K[Krade
+This system supports ZFS pool feature flags.
+
+All pools are formatted using feature flags.
+
+Every feature flags pool has all supported features enabled.
+]0;root@zfs-01:~[root@zfs-01 ~]# zpool upgradeimport otus-d /provision/otus[K-d /provision/
+   pool: otus
+     id: 6554193320433390805
+  state: ONLINE
+status: Some supported features are not enabled on the pool.
+ action: The pool can be imported using its name or numeric identifier, though
+	some features will not be available without an explicit 'zpool upgrade'.
+ config:
+
+	otus                  ONLINE
+	  mirror-0            ONLINE
+	    /provision/filea  ONLINE
+	    /provision/fileb  ONLINE
+]0;root@zfs-01:~[root@zfs-01 ~]# zpool import -d /provision/[14Pupgradeimport otus
+cannot import 'otus': no such pool available
+]0;root@zfs-01:~[root@zfs-01 ~]# zpool import otus[K[K[K[K6554193320433390805
+cannot import '6554193320433390805': no such pool available
+]0;root@zfs-01:~[root@zfs-01 ~]# zpool import 6554193320433390805otus[K6554193320433390805[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Kl[Kcd /provision/
+]0;root@zfs-01:/provision[root@zfs-01 provision]# ls -l
+total 1024052
+-rw-r--r-- 1 vagrant vagrant 524288000 May 15  2020 filea
+-rw-r--r-- 1 vagrant vagrant 524288000 May 15  2020 fileb
+-rw-r--r-- 1 vagrant vagrant      3288 Nov 15 16:29 Vagrantfile
+-rw-r--r-- 1 vagrant vagrant     48181 Nov 16 13:17 zfs-test-compress
+]0;root@zfs-01:/provision[root@zfs-01 provision]# import p[K[K[K[K[K[K[K[Kzpool import
+no pools available to import
+]0;root@zfs-01:/provision[root@zfs-01 provision]# zpool import d[K-d
+missing argument for 'd' option
+usage:
+	import [-d dir] [-D]
+	import [-o mntopts] [-o property=value] ... 
+	    [-d dir | -c cachefile] [-D] [-l] [-f] [-m] [-N] [-R root] [-F [-n]] -a
+	import [-o mntopts] [-o property=value] ... 
+	    [-d dir | -c cachefile] [-D] [-l] [-f] [-m] [-N] [-R root] [-F [-n]]
+	    [--rewind-to-checkpoint] <pool | id> [newpool]
+]0;root@zfs-01:/provision[root@zfs-01 provision]# zpool import -d [K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kcp [K[K[Kcp file[[K{a,b} /home/vagrant/
+]0;root@zfs-01:/provision[root@zfs-01 provision]# zpool import -d /home/vagrant/
+   pool: otus
+     id: 6554193320433390805
+  state: ONLINE
+status: Some supported features are not enabled on the pool.
+ action: The pool can be imported using its name or numeric identifier, though
+	some features will not be available without an explicit 'zpool upgrade'.
+ config:
+
+	otus                     ONLINE
+	  mirror-0               ONLINE
+	    /home/vagrant/filea  ONLINE
+	    /home/vagrant/fileb  ONLINE
+]0;root@zfs-01:/provision[root@zfs-01 provision]# zpool import
+no pools available to import
+]0;root@zfs-01:/provision[root@zfs-01 provision]# zpool import -d /p[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kcd /
+]0;root@zfs-01:/[root@zfs-01 /]# zpool import -d /pe[Krovision/[K otus
+]0;root@zfs-01:/[root@zfs-01 /]# zpool status -v
+  pool: otus
+ state: ONLINE
+status: Some supported features are not enabled on the pool. The pool can
+	still be used, but some features are unavailable.
+action: Enable all features using 'zpool upgrade'. Once this is done,
+	the pool may no longer be accessible by software that does not support
+	the features. See zpool-features(5) for details.
+config:
+
+	NAME                  STATE     READ WRITE CKSUM
+	otus                  ONLINE       0     0     0
+	  mirror-0            ONLINE       0     0     0
+	    /provision/filea  ONLINE       0     0     0
+	    /provision/fileb  ONLINE       0     0     0
+
+errors: No known data errors
+]0;root@zfs-01:/[root@zfs-01 /]# zfs get checksum
+NAME            PROPERTY  VALUE      SOURCE
+otus            checksum  sha256     local
+otus/hometask2  checksum  sha256     inherited from otus
+]0;root@zfs-01:/[root@zfs-01 /]# zfs get recordsize
+NAME            PROPERTY    VALUE    SOURCE
+otus            recordsize  128K     local
+otus/hometask2  recordsize  128K     inherited from otus
+]0;root@zfs-01:/[root@zfs-01 /]# zfs get compression,compresi[Ksoratio[K[K[K[K[K[Kratio
+NAME            PROPERTY       VALUE           SOURCE
+otus            compression    zle             local
+otus            compressratio  1.00x           -
+otus/hometask2  compression    zle             inherited from otus
+otus/hometask2  compressratio  1.00x           -
+]0;root@zfs-01:/[root@zfs-01 /]# exit[K[K[K[Kexit
+logout
+]0;vagrant@zfs-01:~[vagrant@zfs-01 ~]$ exit
+logout
+Connection to 127.0.0.1 closed.
+[?2004h]0;vedoff@nvf: /VML-pool/git/Otus-ZFS[01;32mvedoff@nvf[00m:[01;34m/VML-pool/git/Otus-ZFS[00m$ exit
+[?2004lexit
+
+Script done on 2021-11-16 15:49:20+02:00 [COMMAND_EXIT_CODE="0"]

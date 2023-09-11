@@ -1,0 +1,58 @@
+
+zpool status -v
+zfs list
+zfs get compression,compressratio
+
+zfs create -o compression=lz4 rpool/lz4
+zfs create -o compression=zle rpool/zle
+
+zfs create -o compression=lzjb rpool/lzjb
+zfs create -o compression=gzip-9 rpool/gzip-9
+
+zfs get compression,compressratio
+
+wget -O War_and_Peace.txt http://www.gutenberg.org/ebooks/2600.txt.utf-8
+
+wget https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.15.2.tar.xz
+
+tar -xvf linux-5.15.2.tar.xz
+
+
+======================================= Импорт пула из файла ============================
+
+
+Поиск пулов устройств хранения данных ZFS в альтернативных каталогах
+
+По умолчанию команда zpool import позволяет выполнить поиск устройств только в каталоге /dev/dsk. При наличии устройств в другом каталоге или файловых пулов для их поиска следует использовать параметр -d. Пример:
+
+Пример:
+
+zpool create dozer mirror /file/a /file/b
+
+zpool export dozer
+
+Импорт пула из файла
+
+zpool import -d /file
+  pool: dozer
+    id: 10952414725867935582
+ state: ONLINE
+action: The pool can be imported using its name or numeric identifier.
+config:
+
+        dozer        ONLINE
+          mirror     ONLINE
+            /file/a  ONLINE
+            /file/b  ONLINE
+
+
+=== Импорт пула из файла
+            
+zpool import -d /file dozer
+
+
+============================================================= Импорт пула из снапшета ==================================
+rpool/text на существует, появляется в момент импорта.
+/provision/otus_task2.file - путь по которому импортируется пул
+
+sudo zfs receive rpool/text < /provision/otus_task2.file
