@@ -1,0 +1,49 @@
+## Устанавливаем docker
+- name: install yum-utils
+  yum:
+    name: yum-utils
+    state: latest
+  when:
+    ansible_os_family == "RedHat"
+
+### Устанавливаем репозиторий docker
+- name: install repo docker
+  command: 
+    cmd: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+
+## Install docker    
+- name: install docker
+  yum:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+  when:
+    ansible_os_family == "RedHat"
+  notify:
+    - start docker
+
+## Устанавливаем docker-compose
+- name: Create folder for docker-compose
+  file:
+    path: /home/vagrant/.docker/cli-plugins/
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0755'
+    state: directory
+
+- name: download docker-compose
+  command: 
+    cmd: curl -SL https://github.com/docker/compose/releases/download/v2.2.3/docker-compose-linux-x86_64 -o /home/vagrant/.docker/cli-plugins/docker-compose
+
+- name: change ownership of a file
+  file:
+    path: /home/vagrant/.docker/cli-plugins/docker-compose
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0755'
+
+# - name: install link to docker-compose
+#   command:
+#     cmd: ln -s /home/vagrant/.docker/cli-plugins/docker-compose /usr/local/bin/docker-compose

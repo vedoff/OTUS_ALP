@@ -1,0 +1,8 @@
+---
+- name: Inclide vars
+  include_vars: "{{ ansible_hostname }}.yml"
+  
+# tasks file for frr-cost
+## Подключаем файл конфигурирования frr дорогими маршрутами
+- name: Import configure-frr-cost.yml
+  import_tasks: configure-frr-cost.yml

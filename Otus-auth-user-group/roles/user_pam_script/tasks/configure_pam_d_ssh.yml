@@ -1,0 +1,5 @@
+# Конфигурируем файл sshd шаблоном templ_sshd.j2
+- name: Template for time.conf
+  template:
+      src: templ_sshd.j2
+      dest: /etc/pam.d/sshd

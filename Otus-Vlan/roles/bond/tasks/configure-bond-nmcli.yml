@@ -1,0 +1,60 @@
+- name: set up asynchronous routing
+  sysctl:
+    name: net.ipv4.conf.all.rp_filter
+    value: '0'
+    state: present
+
+- name: set up asynchronous routing
+  sysctl:
+    name: net.ipv4.ip_forward
+    value: '1'
+    state: present
+
+## Добавляем bond интрфейс на сервер iRouter
+- name: add bond0
+  nmcli: 
+    type: bond
+    miimon: '{{item.miimon}}'
+    #updelay: '{{item.updelay}}'
+    #method6: "{{item.method6}}"
+    conn_name: '{{ item.conn_name }}'
+    ifname: '{{ item.ifname }}'
+    ip4: '{{ item.ip4 }}'
+    mode: '{{ item.mode }}'   
+    state: present
+  with_items:
+    - "{{nmcli_bond_ir}}"
+  notify:
+    - restart network
+
+  when: ansible_hostname == "iRouter"
+
+## Добавляем bond интрфейс на сервер cRouter
+- name: add bond0
+  nmcli: 
+    type: bond
+    miimon: '{{item.miimon}}'
+    #updelay: '{{item.updelay}}'
+    conn_name: '{{ item.conn_name }}'
+    ifname: '{{ item.ifname }}'
+    ip4: '{{ item.ip4 }}'
+    mode: '{{ item.mode }}'   
+    state: present
+  with_items:
+    - "{{nmcli_bond_cr}}"
+  notify:
+    - restart network
+  when: ansible_hostname == "cRouter"
+
+## Добавляем slave интерфейсы в bond
+- name: try nmcli add bond-slave eth1
+  nmcli: 
+    type: bond-slave
+    conn_name: '{{item.conn_name}}'
+    ifname: '{{item.ifname}}' 
+    master: '{{item.master}}' 
+    state: present
+  with_items:
+    - "{{nmcli_bond_slave}}"
+  notify:
+    - restart NetworkManager

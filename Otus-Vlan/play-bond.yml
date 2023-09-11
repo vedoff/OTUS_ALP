@@ -1,0 +1,6 @@
+---
+- hosts: bond
+  become:
+    true
+  roles:
+    - bond

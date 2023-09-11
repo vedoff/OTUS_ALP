@@ -1,0 +1,19 @@
+## Установка пакетов
+- name: install iptables service
+  yum:
+    name:
+      - iptables
+      - iptables-services
+  when: 
+    - ansible_hostname == "inetRouter"
+  notify:
+    - iptables started
+
+
+## Установка пакетов
+- name: install nmap service
+  yum:
+    name:
+      - nmap
+  when: 
+    - ansible_hostname == "office"

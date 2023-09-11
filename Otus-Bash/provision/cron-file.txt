@@ -1,0 +1,1 @@
+@hourly /vagrant/provision/readlog.sh

@@ -1,0 +1,6 @@
+---
+- hosts: router
+  become:
+    true
+  roles:
+    - frr-cost

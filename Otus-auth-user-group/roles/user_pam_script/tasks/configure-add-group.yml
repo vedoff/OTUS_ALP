@@ -1,0 +1,13 @@
+# Добавляем группу admin на сервре
+- name: add group for admin
+  group:
+    name: admin
+    state: present
+    
+#  Добавляем пользователя user1 в группу admin
+- name: add user 'user1' for group admin
+  user:
+    name: user1
+#    shell: /bin/bash
+    groups: admin
+    append: yes

@@ -1,0 +1,31 @@
+=== Переименовываем группу томов lvm
+vgrename vgcentos vg0
+
+=== Правим fstab
+vi /etc/fstab
+
+в командном режиме
+:%s/vgcentos/vg0/gc
+
+или так если из консоли
+sed -i 's/vgcentos/vg0/g' /etc/fstab
+
+=== Правим grub.cfg
+
+Делаем с подтверждением возможны совпадения с классами --class centos
+
+в командном режим
+vi /boot/grub2/grub.cfg
+:%s/vgcentos/vg0/gc
+
+Или так
+
+sed -i 's/vgcentos/vg0/g' /boot/grub2/grub.cfg
+
+=== Правим initrd
+
+cd /boot
+
+for i in `ls initramfs-*img`; do dracut -v $i `echo $i|sed "s/initramfs-//g; s/.img//g"` --force; done
+
+shutdown -r 0

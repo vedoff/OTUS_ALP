@@ -1,0 +1,93 @@
+## =========== Добавление правила разрешения транзитных пакетов через интерфейсы ==================
+- name: set up forward packages across routers
+  sysctl:
+    name: net.ipv4.conf.all.forwarding
+    value: '1'
+    state: present
+  when: "'routers' in group_names"
+
+## ============ Удаление default route с интерфейса eth0 centralRouter / centralServer =============
+- name: disable default route
+  lineinfile:
+    dest: /etc/sysconfig/network-scripts/ifcfg-eth0
+    line: DEFROUTE=no
+  when: (ansible_hostname == "centralRouter") or 
+        (ansible_hostname == "centralServer")
+  notify: 
+    - restart network
+
+# ============== Добавляем gateway в eth1 на centralRouter =============================
+- name: add default gateway for centralRouter
+  lineinfile:
+    dest: /etc/sysconfig/network-scripts/ifcfg-eth1
+    line: "GATEWAY=192.168.255.1"
+  when: (ansible_hostname == "centralRouter") 
+  notify: 
+    - restart network
+
+# ================== Добавляем gateway на eth1 на centralServer ========================
+- name: add default gateway for centralServer
+  lineinfile:
+    dest: /etc/sysconfig/network-scripts/ifcfg-eth1
+    line: "GATEWAY=192.168.0.1"
+  when: (ansible_hostname == "centralServer") 
+  notify: 
+    - restart network
+
+          ### ==================== ### Конфигурирование Офис № 1 ### ======================= ###
+
+#  
+- name: add default gateway for office1Router
+  template:
+    src: debian/interface-router.j2
+    dest: /etc/network/interfaces
+  when: (ansible_hostname == "office1Router")
+  notify: 
+    - restart networking
+
+# 
+- name: add default gateway for office1Server
+  template:
+    src: debian/interface-server.j2
+    dest: /etc/network/interfaces
+  when: (ansible_hostname == "office1Server")
+  notify: 
+    - restart networking
+
+          ### ==================== ### Конфигурирование Офис № 2 ### ======================= ###
+
+#
+- name: add default gateway for office2Router
+  template:
+    src: ubuntu/50-vagrant-router.yaml.j2
+    dest: /etc/netplan/50-vagrant.yaml
+  when: (ansible_hostname == "office2Router")
+  notify: 
+    - accept netplan
+
+# 
+- name: add default gateway for office2Router
+  template:
+    src: ubuntu/50-cloud-init-router.yaml.j2
+    dest: /etc/netplan/50-cloud-init.yaml
+  when: (ansible_hostname == "office2Router")
+  notify: 
+    - accept netplan
+
+# 
+- name: add default gateway for office2Server
+  template:
+    src: ubuntu/50-cloud-init-server.yaml.j2
+    dest: /etc/netplan/50-cloud-init.yaml
+  when: (ansible_hostname == "office2Server")
+  notify: 
+    - accept netplan
+
+#
+- name: add default gateway for office2Server
+  template:
+    src: ubuntu/50-vagrant-server.yaml.j2
+    dest: /etc/netplan/50-vagrant.yaml
+  when: (ansible_hostname == "office2Server")
+  notify: 
+    - accept netplan

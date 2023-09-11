@@ -1,0 +1,12 @@
+- name: install pakages to host
+  apt:
+    name:
+      - curl
+      - vim
+      - tcpdump
+      - traceroute
+      - net-tools
+      - gnupg2
+      - mc
+    state: present
+    update_cache: true

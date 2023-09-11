@@ -1,0 +1,134 @@
+Script started on 2021-11-07 19:25:00+02:00 [TERM="xterm-256color" TTY="/dev/pts/1" COLUMNS="98" LINES="53"]
+[?2004h]0;vedoff@nvf: /VML-pool/git/Otus-lvm[01;32mvedoff@nvf[00m:[01;34m/VML-pool/git/Otus-lvm[00m$ vagrant ssh
+[?2004lLast login: Sun Nov  7 17:21:44 2021 from 10.0.2.2
+]0;vagrant@lvm:~[?1034h[vagrant@lvm ~]$ mkdir /home/snap
+mkdir: cannot create directory ‘/home/snap’: Permission denied
+]0;vagrant@lvm:~[vagrant@lvm ~]$ mkdir /home/snap[1@s[1@u[1@d[1@o[1@ 
+]0;vagrant@lvm:~[vagrant@lvm ~]$ sudo mkfs.ext4 /dev/VolGroup00/lv-snap[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Klsblk
+NAME                                 MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda                                    8:0    0   10G  0 disk 
+sdb                                    8:16   0    2G  0 disk 
+sdc                                    8:32   0    1G  0 disk 
+├─vg--var--mir-lv--var--mir_rmeta_0  253:2    0    4M  0 lvm  
+│ └─vg--var--mir-lv--var--mir        253:7    0 1016M  0 lvm  /var
+└─vg--var--mir-lv--var--mir_rimage_0 253:3    0 1016M  0 lvm  
+  └─vg--var--mir-lv--var--mir        253:7    0 1016M  0 lvm  /var
+sdd                                    8:48   0    1G  0 disk 
+├─vg--var--mir-lv--var--mir_rmeta_1  253:4    0    4M  0 lvm  
+│ └─vg--var--mir-lv--var--mir        253:7    0 1016M  0 lvm  /var
+└─vg--var--mir-lv--var--mir_rimage_1 253:5    0 1016M  0 lvm  
+  └─vg--var--mir-lv--var--mir        253:7    0 1016M  0 lvm  /var
+sde                                    8:64   0   40G  0 disk 
+├─sde1                                 8:65   0    1M  0 part 
+├─sde2                                 8:66   0    1G  0 part /boot
+└─sde3                                 8:67   0   39G  0 part 
+  ├─VolGroup00-LogVol00              253:0    0    8G  0 lvm  /
+  ├─VolGroup00-LogVol01              253:1    0  1.5G  0 lvm  [SWAP]
+  ├─VolGroup00-lv--home              253:9    0   10G  0 lvm  /home
+  └─VolGroup00-lv--snap              253:11   0   10G  0 lvm  
+]0;vagrant@lvm:~[vagrant@lvm ~]$ sudo mkfs.ext4 /dev/VolGroup00/lv-snap
+mke2fs 1.42.9 (28-Dec-2013)
+Filesystem label=
+OS type: Linux
+Block size=4096 (log=2)
+Fragment size=4096 (log=2)
+Stride=0 blocks, Stripe width=0 blocks
+655360 inodes, 2621440 blocks
+131072 blocks (5.00%) reserved for the super user
+First data block=0
+Maximum filesystem blocks=2151677952
+80 block groups
+32768 blocks per group, 32768 fragments per group
+8192 inodes per group
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632
+
+Allocating group tables:  0/80     done                            
+Writing inode tables:  0/80     done                            
+Creating journal (32768 blocks): done
+Writing superblocks and filesystem accounting information:  0/80     done
+
+]0;vagrant@lvm:~[vagrant@lvm ~]$ sudo mount /dev/VolGroup00/lv-snap /home/snap/
+]0;vagrant@lvm:~[vagrant@lvm ~]$ touch /home/snap/t{1..10}
+touch: cannot touch ‘/home/snap/t1’: Permission denied
+touch: cannot touch ‘/home/snap/t2’: Permission denied
+touch: cannot touch ‘/home/snap/t3’: Permission denied
+touch: cannot touch ‘/home/snap/t4’: Permission denied
+touch: cannot touch ‘/home/snap/t5’: Permission denied
+touch: cannot touch ‘/home/snap/t6’: Permission denied
+touch: cannot touch ‘/home/snap/t7’: Permission denied
+touch: cannot touch ‘/home/snap/t8’: Permission denied
+touch: cannot touch ‘/home/snap/t9’: Permission denied
+touch: cannot touch ‘/home/snap/t10’: Permission denied
+]0;vagrant@lvm:~[vagrant@lvm ~]$ touch /home/snap/t{1..10}[1@ [1@s[1@u[1@d[1@o
+]0;vagrant@lvm:~[vagrant@lvm ~]$ sudo touch /home/snap/t{1..10}[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Csudo mount /dev/VolGroup00/lv-snap /home/snap/[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[21Ptouch /home/snap/t{1..10}[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5@sudo [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Kls -l /home/snap/
+total 16
+drwx------. 2 root root 16384 Nov  7 17:26 [0m[38;5;27mlost+found[0m
+-rw-r--r--. 1 root root     0 Nov  7 17:26 t1
+-rw-r--r--. 1 root root     0 Nov  7 17:26 t10
+-rw-r--r--. 1 root root     0 Nov  7 17:26 t2
+-rw-r--r--. 1 root root     0 Nov  7 17:26 t3
+-rw-r--r--. 1 root root     0 Nov  7 17:26 t4
+-rw-r--r--. 1 root root     0 Nov  7 17:26 t5
+-rw-r--r--. 1 root root     0 Nov  7 17:26 t6
+-rw-r--r--. 1 root root     0 Nov  7 17:26 t7
+-rw-r--r--. 1 root root     0 Nov  7 17:26 t8
+-rw-r--r--. 1 root root     0 Nov  7 17:26 t9
+]0;vagrant@lvm:~[vagrant@lvm ~]$ sudo lvcreate -L 1G -s -n test-snap /dev/VolGroup00/lv-snap
+  Logical volume "test-snap" created.
+]0;vagrant@lvm:~[vagrant@lvm ~]$ rm /home/snap/t{1..5}[1@ [1@s[1@u[1@d[1@o
+]0;vagrant@lvm:~[vagrant@lvm ~]$ sudo rm /home/snap/t{1..5}lvcreate -L 1G -s -n test-snap /dev/VolGroup00/lv-snap[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls -l /home/snap/[K
+total 16
+drwx------. 2 root root 16384 Nov  7 17:26 [0m[38;5;27mlost+found[0m
+-rw-r--r--. 1 root root     0 Nov  7 17:26 t10
+-rw-r--r--. 1 root root     0 Nov  7 17:26 t6
+-rw-r--r--. 1 root root     0 Nov  7 17:26 t7
+-rw-r--r--. 1 root root     0 Nov  7 17:26 t8
+-rw-r--r--. 1 root root     0 Nov  7 17:26 t9
+]0;vagrant@lvm:~[vagrant@lvm ~]$ sudo umount /home/snap
+]0;vagrant@lvm:~[vagrant@lvm ~]$ sudo lvconvert --merge /dev/VolGroup00/test-snap
+  Merging of volume VolGroup00/test-snap started.
+  VolGroup00/lv-snap: Merged: 100.00%
+]0;vagrant@lvm:~[vagrant@lvm ~]$ sudo mount /dev/VolGroup00/lv-snap /home/snap/
+]0;vagrant@lvm:~[vagrant@lvm ~]$ sudo mount /dev/VolGroup00/lv-snap /home/snap/[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Clvconvert --merge /dev/VolGroup00/test-snap[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[26Pumount /home/snap[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5Pls -l /home/snap/
+total 16
+drwx------. 2 root root 16384 Nov  7 17:26 [0m[38;5;27mlost+found[0m
+-rw-r--r--. 1 root root     0 Nov  7 17:26 t1
+-rw-r--r--. 1 root root     0 Nov  7 17:26 t10
+-rw-r--r--. 1 root root     0 Nov  7 17:26 t2
+-rw-r--r--. 1 root root     0 Nov  7 17:26 t3
+-rw-r--r--. 1 root root     0 Nov  7 17:26 t4
+-rw-r--r--. 1 root root     0 Nov  7 17:26 t5
+-rw-r--r--. 1 root root     0 Nov  7 17:26 t6
+-rw-r--r--. 1 root root     0 Nov  7 17:26 t7
+-rw-r--r--. 1 root root     0 Nov  7 17:26 t8
+-rw-r--r--. 1 root root     0 Nov  7 17:26 t9
+]0;vagrant@lvm:~[vagrant@lvm ~]$ lsblk
+NAME                                 MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda                                    8:0    0   10G  0 disk 
+sdb                                    8:16   0    2G  0 disk 
+sdc                                    8:32   0    1G  0 disk 
+├─vg--var--mir-lv--var--mir_rmeta_0  253:2    0    4M  0 lvm  
+│ └─vg--var--mir-lv--var--mir        253:7    0 1016M  0 lvm  /var
+└─vg--var--mir-lv--var--mir_rimage_0 253:3    0 1016M  0 lvm  
+  └─vg--var--mir-lv--var--mir        253:7    0 1016M  0 lvm  /var
+sdd                                    8:48   0    1G  0 disk 
+├─vg--var--mir-lv--var--mir_rmeta_1  253:4    0    4M  0 lvm  
+│ └─vg--var--mir-lv--var--mir        253:7    0 1016M  0 lvm  /var
+└─vg--var--mir-lv--var--mir_rimage_1 253:5    0 1016M  0 lvm  
+  └─vg--var--mir-lv--var--mir        253:7    0 1016M  0 lvm  /var
+sde                                    8:64   0   40G  0 disk 
+├─sde1                                 8:65   0    1M  0 part 
+├─sde2                                 8:66   0    1G  0 part /boot
+└─sde3                                 8:67   0   39G  0 part 
+  ├─VolGroup00-LogVol00              253:0    0    8G  0 lvm  /
+  ├─VolGroup00-LogVol01              253:1    0  1.5G  0 lvm  [SWAP]
+  ├─VolGroup00-lv--home              253:9    0   10G  0 lvm  /home
+  └─VolGroup00-lv--snap              253:11   0   10G  0 lvm  /home/snap
+]0;vagrant@lvm:~[vagrant@lvm ~]$ exit
+logout
+Connection to 127.0.0.1 closed.
+[?2004h]0;vedoff@nvf: /VML-pool/git/Otus-lvm[01;32mvedoff@nvf[00m:[01;34m/VML-pool/git/Otus-lvm[00m$ exit
+[?2004lexit
+
+Script done on 2021-11-07 19:28:47+02:00 [COMMAND_EXIT_CODE="0"]

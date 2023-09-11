@@ -1,0 +1,168 @@
+# -*- mode: ruby -*-
+# vim: set ft=ruby :
+home = ENV['HOME']
+ENV["LC_ALL"] = "en_US.UTF-8"
+
+  # ========================================= iRouter ========================================
+
+Vagrant.configure(2) do |config|
+    config.vm.define "iRouter" do |server|
+    # имя виртуальной машины
+    server.vm.box = 'centos/7'
+    server.vm.box_version = '2004.01'
+    server.vm.provider "virtualbox" do |vb|
+      vb.name = "iRouter"
+    end
+    # hostname виртуальной машины
+    server.vm.hostname = "iRouter"
+    # настройки сети
+    server.vm.network "private_network", adapter: 2, virtualbox__intnet: "router-net"
+    server.vm.network "private_network", adapter: 3, virtualbox__intnet: "router-net"
+    server.vm.network "private_network", ip: "192.168.56.10",adapter: 4, netmask: "255.255.255.0"
+    server.vm.synced_folder ".", "/vagrant",
+          type: "rsync",
+          rsync_auto: "true",
+          rsync_exclude: [".git/",".vagrant/",".gitignore","Vagrantfile"]
+          #server.vm.provision "shell", path: "provision/prepare-tserv1.sh"
+    end
+
+  # ========================================= cRouter =====================================
+    config.vm.define "cRouter" do |client|
+    # имя виртуальной машины
+    client.vm.box = 'centos/7'
+    client.vm.box_version = '2004.01' 
+    client.vm.provider "virtualbox" do |vbc|
+      vbc.name = "cRouter"
+    end
+    # hostname виртуальной машины
+    client.vm.hostname = "cRouter"
+    # настройки сети
+    client.vm.network "private_network", adapter: 2, virtualbox__intnet: "router-net"
+    client.vm.network "private_network", adapter: 3, virtualbox__intnet: "router-net"
+    client.vm.network "private_network", adapter: 4, virtualbox__intnet: "lan-test"
+    client.vm.network "private_network", ip: "192.168.56.11",adapter: 5, netmask: "255.255.255.0"
+    client.vm.synced_folder ".", "/vagrant",  
+          type: "rsync",
+          rsync_auto: "true",
+          rsync_exclude: [".git/",".vagrant/",".gitignore","Vagrantfile"]
+          #client.vm.provision "shell", path: "provision/prepare-croute.sh"
+# ssh-pub add in server
+  config.vm.provision "shell", inline: <<-SHELL
+  cat /vagrant/provision/vagrant-key.pub >> /home/vagrant/.ssh/authorized_keys
+  SHELL
+
+    end
+end
+
+  # ========================================= testServer1 ===================================================
+
+Vagrant.configure(2) do |tserv1|
+    tserv1.vm.define "tserver-01" do |tserv1|
+    # имя виртуальной машины
+    tserv1.vm.box = 'centos/7'
+    tserv1.vm.box_version = '2004.01'
+    tserv1.vm.provider "virtualbox" do |vb|
+      vb.name = "tserver-01"
+    end
+    # hostname виртуальной машины
+    tserv1.vm.hostname = "tserver-01"
+    # настройки сети
+    tserv1.vm.network "private_network", adapter: 2, virtualbox__intnet: "lan-test"
+    tserv1.vm.network "private_network", ip: "192.168.56.12",adapter: 3, netmask: "255.255.255.0"
+    tserv1.vm.synced_folder ".", "/vagrant",  
+          type: "rsync",
+          rsync_auto: "true",
+          rsync_exclude: [".git/",".vagrant/",".gitignore","Vagrantfile"]
+          #tserv1.vm.provision "shell", path: "provision/prepare-irouter2.sh"
+          #tserv1.vm.provision "shell", path: "provision/add-forward.sh"
+  # ssh-pub add in server
+    tserv1.vm.provision "shell", inline: <<-SHELL
+    cat /vagrant/provision/vagrant-key.pub >> /home/vagrant/.ssh/authorized_keys
+    SHELL
+
+    end
+end
+
+# =========================================== testServer2 ===================================================
+
+Vagrant.configure(2) do |tserv2|
+    tserv2.vm.define "tserver-02" do |tserv2|
+    # имя виртуальной машины
+    tserv2.vm.box = 'centos/7'
+    tserv2.vm.box_version = '2004.01'
+    tserv2.vm.provider "virtualbox" do |vb|
+      vb.name = "tserver-02"
+    end
+    # hostname виртуальной машины
+    tserv2.vm.hostname = "tserver-02"
+    # настройки сети
+    tserv2.vm.network "private_network", adapter: 2, virtualbox__intnet: "lan-test"
+    tserv2.vm.network "private_network", ip: "192.168.56.13",adapter: 3, netmask: "255.255.255.0"
+        tserv2.vm.synced_folder ".", "/vagrant",  
+          type: "rsync",
+          rsync_auto: "true",
+          rsync_exclude: [".git/",".vagrant/",".gitignore","Vagrantfile"]
+          #tserv2.vm.provision "shell", path: "provision/prepare-tserv2.sh"
+  # ssh-pub add in server
+    tserv2.vm.provision "shell", inline: <<-SHELL
+    cat /vagrant/provision/vagrant-key.pub >> /home/vagrant/.ssh/authorized_keys
+    SHELL
+
+    end
+end
+
+# =========================================== testClient1 ===================================================
+
+Vagrant.configure(2) do |tclient1|
+  tclient1.vm.define "tclient-01" do |tclient1|
+  # имя виртуальной машины
+  tclient1.vm.box = 'centos/7'
+  tclient1.vm.box_version = '2004.01'
+  tclient1.vm.provider "virtualbox" do |vb|
+    vb.name = "tclient-01"
+  end
+  # hostname виртуальной машины
+  tclient1.vm.hostname = "tclient-01"
+  # настройки сети
+  tclient1.vm.network "private_network", adapter: 2, virtualbox__intnet: "lan-test"
+  tclient1.vm.network "private_network", ip: "192.168.56.14",adapter: 3, netmask: "255.255.255.0"
+  tclient1.vm.synced_folder ".", "/vagrant",  
+        type: "rsync",
+        rsync_auto: "true",
+        rsync_exclude: [".git/",".vagrant/",".gitignore","Vagrantfile"]
+        #tserv2.vm.provision "shell", path: "provision/prepare-tserv2.sh"
+# ssh-pub add in server
+tclient1.vm.provision "shell", inline: <<-SHELL
+  cat /vagrant/provision/vagrant-key.pub >> /home/vagrant/.ssh/authorized_keys
+  SHELL
+
+  end
+end
+
+# =========================================== testClient2 ===================================================
+
+Vagrant.configure(2) do |tclient2|
+  tclient2.vm.define "tclient-02" do |tclient2|
+  # имя виртуальной машины
+  tclient2.vm.box = 'centos/7'
+  tclient2.vm.box_version = '2004.01'
+  tclient2.vm.provider "virtualbox" do |vb|
+    vb.name = "tclient-02"
+  end
+  # hostname виртуальной машины
+  tclient2.vm.hostname = "tclient-02"
+  # настройки сети
+  tclient2.vm.network "private_network", adapter: 2, virtualbox__intnet: "lan-test"
+  tclient2.vm.network "private_network", adapter: 3, ip: "192.168.56.15", netmask: "255.255.255.0"
+  tclient2.vm.synced_folder ".", "/vagrant",  
+        type: "rsync",
+        rsync_auto: "true",
+        rsync_exclude: [".git/",".vagrant/",".gitignore","Vagrantfile"]
+        #tserv2.vm.provision "shell", path: "provision/prepare-tserv2.sh"
+# ssh-pub add in server
+tclient2.vm.provision "shell", inline: <<-SHELL
+  cat /vagrant/provision/vagrant-key.pub >> /home/vagrant/.ssh/authorized_keys
+  SHELL
+
+  end
+end

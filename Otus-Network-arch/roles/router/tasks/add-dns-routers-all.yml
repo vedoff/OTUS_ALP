@@ -1,0 +1,32 @@
+## add resolv.conf
+- name: install resolv.conf
+  copy:
+    src: all/resolv.conf
+    dest: /etc/resolv.conf
+
+## Добавляем обратные маршруты в сети для интернет роутера
+- name: add back in route all net for inetRouter
+  copy:
+    src: irouter/route-eth1
+    dest: /etc/sysconfig/network-scripts/route-eth1
+  when: (ansible_hostname == "inetRouter")
+  notify: 
+    - restart network
+
+## Добавляем обратные маршруты в сети дляцентрального роутера
+- name: add back in route all net for centralRouter
+  copy:
+    src: crouter/route-eth5
+    dest: /etc/sysconfig/network-scripts/route-eth5
+  when: (ansible_hostname == "centralRouter")
+  notify: 
+    - restart network
+
+## Добавляем обратные маршруты в сети для центрального роутера
+- name: add back in route all net for centralRouter
+  copy:
+    src: crouter/route-eth6
+    dest: /etc/sysconfig/network-scripts/route-eth6
+  when: (ansible_hostname == "centralRouter")
+  notify: 
+    - restart network

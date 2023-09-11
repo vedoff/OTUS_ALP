@@ -1,0 +1,1130 @@
+Script started on 2021-11-10 11:56:19+02:00 [TERM="xterm-256color" TTY="/dev/pts/1" COLUMNS="167" LINES="49"]
+[?2004h]0;vedoff@nvf: /VML-pool/git/Otus-lvm[01;32mvedoff@nvf[00m:[01;34m/VML-pool/git/Otus-lvm[00m$ vagrant ssh
+[?2004lLast login: Sun Nov  7 17:38:11 2021 from 10.0.2.2
+]0;vagrant@lvm:~[?1034h[vagrant@lvm ~]$ zfs list
+-bash: zfs: command not found
+]0;vagrant@lvm:~[vagrant@lvm ~]$ [K[vagrant@lvm ~]$ [K[vagrant@lvm ~]$ [K[vagrant@lvm ~]$ [K[vagrant@lvm ~]$ [K[vagrant@lvm ~]$ [K[vagrant@lvm ~]$ [K[vagrant@lvm ~]$ [K[vagrant@lvm ~]$ [K[vagrant@lvm ~]$ [K[vagrant@lvm ~]$ [K[vagrant@lvm ~]$ [K[vagrant@lvm ~]$ [K[vagrant@lvm ~]$ [K[vagrant@lvm ~]$ [K[vagrant@lvm ~]$ sudo yum install zfs[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kcat /etc/redhat-release 
+CentOS Linux release 7.5.1804 (Core) 
+]0;vagrant@lvm:~[vagrant@lvm ~]$ sudo yum [K[K[K[K[K[K[K[K[Ksudo yum install http://download.zfsonlinux.org/epel/zfs-release.el7_5.noarch.rpm -y
+Loaded plugins: fastestmirror
+zfs-release.el7_5.noarch.rpm                                                                    | 5.3 kB  00:00:00     
+Examining /var/tmp/yum-root-lsyGyZ/zfs-release.el7_5.noarch.rpm: zfs-release-1-5.el7.centos.noarch
+Marking /var/tmp/yum-root-lsyGyZ/zfs-release.el7_5.noarch.rpm to be installed
+Resolving Dependencies
+--> Running transaction check
+---> Package zfs-release.noarch 0:1-5.el7.centos will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+=======================================================================================================================
+ Package                  Arch                Version                     Repository                              Size
+=======================================================================================================================
+Installing:
+ [1mzfs-release(B[m              noarch              1-5.el7.centos              /zfs-release.el7_5.noarch              2.9 k
+
+Transaction Summary
+=======================================================================================================================
+Install  1 Package
+
+Total size: 2.9 k
+Installed size: 2.9 k
+Downloading packages:
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : zfs-release-1-5.el7.centos.noarch [                                                               ] 1/1  Installing : zfs-release-1-5.el7.centos.noarch [##################################                             ] 1/1  Installing : zfs-release-1-5.el7.centos.noarch [############################################################   ] 1/1  Installing : zfs-release-1-5.el7.centos.noarch                                                                   1/1 
+  Verifying  : zfs-release-1-5.el7.centos.noarch                                                                   1/1 
+
+Installed:
+  zfs-release.noarch 0:1-5.el7.centos                                                                                  
+
+Complete!
+]0;vagrant@lvm:~[vagrant@lvm ~]$ sy[Kudo vi /etc/yum.repos.d/xfs[K[K[Kcfs[K[K[Kzfs.repo 
+[?1049h[?1h=[1;53r[?12;25h[?12l[?25h[27m[m[H[2J[?25l[53;1H"/etc/yum.repos.d/zfs.repo" 45L, 1225C[1;1H[zfs]
+name=ZFS on Linux for EL7 - dkms
+baseurl=http://download.zfsonlinux.org/epel/7.5/$basearch/
+enabled=1
+metadata_expire=7d
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-zfsonlinux
+
+[zfs-kmod]
+name=ZFS on Linux for EL7 - kmod
+baseurl=http://download.zfsonlinux.org/epel/7.5/kmod/$basearch/
+enabled=0
+metadata_expire=7d
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-zfsonlinux
+
+[zfs-source]
+name=ZFS on Linux for EL7 - Source
+baseurl=http://download.zfsonlinux.org/epel/7.5/SRPMS/
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-zfsonlinux
+
+[zfs-testing]
+name=ZFS on Linux for EL7 - dkms - Testing
+baseurl=http://download.zfsonlinux.org/epel-testing/7.5/$basearch/
+enabled=0
+metadata_expire=7d
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-zfsonlinux
+
+[zfs-testing-kmod]
+name=ZFS on Linux for EL7 - kmod - Testing
+baseurl=http://download.zfsonlinux.org/epel-testing/7.5/kmod/$basearch/
+enabled=0
+metadata_expire=7d
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-zfsonlinux
+
+[zfs-testing-source]
+name=ZFS on Linux for EL7 - Testing Source
+baseurl=http://download.zfsonlinux.org/epel-testing/7.5/SRPMS/
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-zfsonlinux
+[94m~                                                                                                                      [47;1H~                                                                                                                      [48;1H~                                                                                                                      [49;1H~                                                                                                                      [50;1H~                                                                                                                      [51;1H~                                                                                                                      [52;1H~                                                                                                                      [1;1H[?12l[?25h
+
+
+
+[4;1H[menabled=[?25l0[?12l[?25h[5;9H[6;9H[7;9H
+[9;9H[10;9H[11;9H[12;9H[?25l1[?12l[?25h[?25l[53;29H[K[53;29H45L, 1225C written
+[?1l>[?12l[?25h[?1049l]0;vagrant@lvm:~[vagrant@lvm ~]$ 
+]0;vagrant@lvm:~[vagrant@lvm ~]$ 
+]0;vagrant@lvm:~[vagrant@lvm ~]$ sudo yum install zfs zfs-drucut[K[K[K[Kacut
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirrors.powernet.com.ru
+ * extras: mirrors.powernet.com.ru
+ * updates: mirror.linux-ia64.org
+zfs-kmod                                                                                        | 2.9 kB  00:00:00     
+zfs-kmod/x86_64/primary_db                    0% [                                   ]  0.0 B/s |    0 B  --:--:-- ETA zfs-kmod/x86_64/primary_db                   30% [==========-                        ]  0.0 B/s |  45 kB  --:--:-- ETA zfs-kmod/x86_64/primary_db                                                                      | 145 kB  00:00:01     
+Resolving Dependencies
+--> Running transaction check
+---> Package zfs.x86_64 0:0.7.12-1.el7_5 will be installed
+--> Processing Dependency: zfs-kmod = 0.7.12 for package: zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: spl = 0.7.12 for package: zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: libzpool2 = 0.7.12 for package: zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: libzfs2 = 0.7.12 for package: zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: libuutil1 = 0.7.12 for package: zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: libnvpair1 = 0.7.12 for package: zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: sysstat for package: zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: libzpool.so.2()(64bit) for package: zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: libzfs_core.so.1()(64bit) for package: zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: libzfs.so.2()(64bit) for package: zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: libuutil.so.1()(64bit) for package: zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: libnvpair.so.1()(64bit) for package: zfs-0.7.12-1.el7_5.x86_64
+---> Package zfs-dracut.x86_64 0:0.7.12-1.el7_5 will be installed
+--> Running transaction check
+---> Package kmod-zfs.x86_64 0:0.7.12-1.el7_5 will be installed
+--> Processing Dependency: ksym(zone_get_hostid) = 0xba3e2d71 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(zio_arena) = 0xb0364551 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(z_uncompress) = 0xd8b5eb52 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(z_compress_level) = 0x55de2e28 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(xdrmem_create) = 0xddd4a3d3 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(vn_set_pwd) = 0xf7b48661 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(vn_seek) = 0xa25d7708 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(vn_releasef) = 0x65f3602b for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(vn_rdwr) = 0xda0b5604 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(vn_openat) = 0x584f0fa4 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(vn_open) = 0x6cd72a01 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(vn_mode_to_vtype) = 0x5ecf6f91 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(vn_getf) = 0x017c4698 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(vn_getattr) = 0xa518c2ad for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(vn_fsync) = 0xb7b69dab for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(vn_close) = 0x19302b91 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(vmem_size) = 0x29eec2f0 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(vcmn_err) = 0x52778ec7 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(tsd_set) = 0x1285cb78 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(tsd_get) = 0x3323ccb1 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(tsd_destroy) = 0x8eb0a41f for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(tsd_create) = 0x958b84e3 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(taskq_wait_outstanding) = 0x68c4f9da for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(taskq_wait_id) = 0x24bd0182 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(taskq_wait) = 0x2e2e322f for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(taskq_member) = 0xf12d1676 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(taskq_init_ent) = 0xa08322cc for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(taskq_dispatch_ent) = 0x5dbd6138 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(taskq_dispatch_delay) = 0xdb77dd01 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(taskq_dispatch) = 0x589fea99 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(taskq_destroy) = 0x6b220bcb for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(taskq_create) = 0xcd44eb00 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(taskq_cancel_id) = 0xd92839b8 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(system_taskq) = 0x05f08dbe for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(system_delay_taskq) = 0x6af554dd for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(strfree) = 0x1b8f1d1e for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(strdup) = 0xc810362f for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(spl_vmem_zalloc) = 0x6c2c274e for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(spl_vmem_free) = 0x0ff749bc for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(spl_vmem_alloc) = 0xfe172afe for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(spl_panic) = 0xbc32eee7 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(spl_kmem_zalloc) = 0x9b0325e8 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(spl_kmem_free) = 0x6d16801a for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(spl_kmem_cache_set_move) = 0xe17fb160 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(spl_kmem_cache_reap_now) = 0x83aa5282 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(spl_kmem_cache_free) = 0xe5779a08 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(spl_kmem_cache_destroy) = 0x0b51262a for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(spl_kmem_cache_create) = 0xf0202554 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(spl_kmem_cache_alloc) = 0xd1aa34d4 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(spl_kmem_alloc) = 0xb342d16a for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(rwsem_tryupgrade) = 0x4be94236 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(rootdir) = 0x0e7813a4 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(random_get_pseudo_bytes) = 0x2109bc3a for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(p0) = 0xbccac85e for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(kstat_waitq_exit) = 0x6127b911 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(kstat_waitq_enter) = 0xcc762837 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(kstat_runq_exit) = 0xcc8e80f8 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(kstat_runq_enter) = 0x150ddbd2 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(kobj_read_file) = 0xa2724b1e for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(kobj_open_file) = 0xa88e7496 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(kobj_get_filesize) = 0x89291f9f for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(kobj_close_file) = 0x16837e70 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(kmem_vasprintf) = 0x064623de for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(kmem_debugging) = 0x75907276 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(kmem_asprintf) = 0xaa65a555 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(groupmember) = 0x8a51e16a for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(ddi_strtoull) = 0xf68905fd for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(ddi_strtol) = 0x82fe53e1 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(ddi_copyout) = 0x431a8a2c for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(ddi_copyin) = 0xd8e07779 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(cv_timedwait_sig_hires) = 0x63aee8aa for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(cv_timedwait_hires) = 0x8da76a54 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(crhold) = 0xbd6bcd08 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(crgetuid) = 0x72cf8c8b for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(crgetruid) = 0xce6d7d76 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(crgetngroups) = 0xbaeceadd for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(crgetgroups) = 0x3098be9f for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(crgetgid) = 0x1b27ac37 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(crgetfsuid) = 0x10761aa5 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(crgetfsgid) = 0xe0b0dd84 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(crfree) = 0xf76b5740 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(cmn_err) = 0x82027a4c for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(__thread_exit) = 0x3896a905 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(__thread_create) = 0x47805038 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(__kstat_set_raw_ops) = 0xbf5f302a for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(__kstat_install) = 0xe4db3c03 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(__kstat_delete) = 0x79478dcc for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(__kstat_create) = 0x235e9bea for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(__cv_wait_sig) = 0x24f9a150 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(__cv_wait_io) = 0x1305f576 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(__cv_wait) = 0x3e43bb06 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(__cv_timedwait_sig) = 0xef8c32c0 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(__cv_signal) = 0xadd3247e for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(__cv_init) = 0x0f1e4497 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(__cv_destroy) = 0x459a3b05 for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: ksym(__cv_broadcast) = 0xb75ecbeb for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+--> Processing Dependency: spl-kmod for package: kmod-zfs-0.7.12-1.el7_5.x86_64
+---> Package libnvpair1.x86_64 0:0.7.12-1.el7_5 will be installed
+---> Package libuutil1.x86_64 0:0.7.12-1.el7_5 will be installed
+---> Package libzfs2.x86_64 0:0.7.12-1.el7_5 will be installed
+---> Package libzpool2.x86_64 0:0.7.12-1.el7_5 will be installed
+---> Package spl.x86_64 0:0.7.12-1.el7_5 will be installed
+---> Package sysstat.x86_64 0:10.1.5-19.el7 will be installed
+--> Processing Dependency: libsensors.so.4()(64bit) for package: sysstat-10.1.5-19.el7.x86_64
+--> Running transaction check
+---> Package kmod-spl.x86_64 0:0.7.12-1.el7_5 will be installed
+---> Package lm_sensors-libs.x86_64 0:3.4.0-8.20160601gitf9185e5.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+=======================================================================================================================
+ Package                     Arch               Version                                     Repository            Size
+=======================================================================================================================
+Installing:
+ zfs                         x86_64             0.7.12-1.el7_5                              zfs-kmod             414 k
+ zfs-dracut                  x86_64             0.7.12-1.el7_5                              zfs-kmod              15 k
+Installing for dependencies:
+ kmod-spl                    x86_64             0.7.12-1.el7_5                              zfs-kmod             114 k
+ kmod-zfs                    x86_64             0.7.12-1.el7_5                              zfs-kmod             896 k
+ libnvpair1                  x86_64             0.7.12-1.el7_5                              zfs-kmod              31 k
+ libuutil1                   x86_64             0.7.12-1.el7_5                              zfs-kmod              36 k
+ libzfs2                     x86_64             0.7.12-1.el7_5                              zfs-kmod             131 k
+ libzpool2                   x86_64             0.7.12-1.el7_5                              zfs-kmod             595 k
+ lm_sensors-libs             x86_64             3.4.0-8.20160601gitf9185e5.el7              base                  42 k
+ spl                         x86_64             0.7.12-1.el7_5                              zfs-kmod              29 k
+ sysstat                     x86_64             10.1.5-19.el7                               base                 315 k
+
+Transaction Summary
+=======================================================================================================================
+Install  2 Packages (+9 Dependent packages)
+
+Total download size: 2.6 M
+Installed size: 9.4 M
+Is this ok [y/d/N]: y
+Downloading packages:
+(2/11): kmod-zfs-0.7.12-1.el7_5.x86_64.rpm    0% [                                   ]  0.0 B/s |    0 B  --:--:-- ETA (2/11): kmod-zfs-0.7.12-1.el7_5.x86_64.rpm    2% [-                                  ]  0.0 B/s |  58 kB  --:--:-- ETA (1/11): kmod-spl-0.7.12-1.el7_5.x86_64.rpm                                                      | 114 kB  00:00:01     
+(3/11): libnvpair1-0.7.12-1.el7_5.x86_64.rpm 13% [====-                              ] 304 kB/s | 349 kB  00:00:07 ETA (2/11): libnvpair1-0.7.12-1.el7_5.x86_64.rpm                                                    |  31 kB  00:00:00     
+(3/11): libuutil1-0.7.12-1.el7_5.x86_64.rpm                                                     |  36 kB  00:00:00     
+(4/11): kmod-zfs-0.7.12-1.el7_5.x86_64.rpm   36% [============-                      ] 391 kB/s | 955 kB  00:00:04 ETA (4/11): libzfs2-0.7.12-1.el7_5.x86_64.rpm                                                       | 131 kB  00:00:00     
+(5/11): kmod-zfs-0.7.12-1.el7_5.x86_64.rpm   44% [===============-                   ] 400 kB/s | 1.1 MB  00:00:03 ETA (5/11): kmod-zfs-0.7.12-1.el7_5.x86_64.rpm                                                      | 896 kB  00:00:02     
+(6/11): lm_sensors-libs-3.4.0-8.20160601gitf9185e5.el7.x86_64.rpm                               |  42 kB  00:00:00     
+(7/11): spl-0.7.12-1.el7_5.x86_64.rpm                                                           |  29 kB  00:00:00     
+(8/11): libzpool2-0.7.12-1.el7_5.x86_64.rpm                                                     | 595 kB  00:00:00     
+(9/11): sysstat-10.1.5-19.el7.x86_64.rpm     71% [=========================          ] 505 kB/s | 1.8 MB  00:00:01 ETA (9/11): zfs-dracut-0.7.12-1.el7_5.x86_64.rpm                                                    |  15 kB  00:00:00     
+(11/11): zfs-0.7.12-1.el7_5.x86_64.rpm       75% [==========================-        ] 496 kB/s | 1.9 MB  00:00:01 ETA (10/11): sysstat-10.1.5-19.el7.x86_64.rpm                                                       | 315 kB  00:00:00     
+(11/11): zfs-0.7.12-1.el7_5.x86_64.rpm       98% [==================================-] 560 kB/s | 2.5 MB  00:00:00 ETA (11/11): zfs-0.7.12-1.el7_5.x86_64.rpm                                                          | 414 kB  00:00:01     
+-----------------------------------------------------------------------------------------------------------------------
+Total                                                                                  655 kB/s | 2.6 MB  00:00:03     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : libuutil1-0.7.12-1.el7_5.x86_64 [                                                               ]  1/11  Installing : libuutil1-0.7.12-1.el7_5.x86_64 [####################################################           ]  1/11  Installing : libuutil1-0.7.12-1.el7_5.x86_64 [############################################################## ]  1/11  Installing : libuutil1-0.7.12-1.el7_5.x86_64                                                                    1/11 
+  Installing : libnvpair1-0.7.12-1.el7_5.x86_64 [                                                              ]  2/11  Installing : libnvpair1-0.7.12-1.el7_5.x86_64 [################################################              ]  2/11  Installing : libnvpair1-0.7.12-1.el7_5.x86_64 [############################################################# ]  2/11  Installing : libnvpair1-0.7.12-1.el7_5.x86_64                                                                   2/11 
+  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [                                                               ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [#                                                              ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [###                                                            ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [#####                                                          ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [#######                                                        ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [#########                                                      ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [###########                                                    ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [#############                                                  ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [###############                                                ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [#################                                              ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [##################                                             ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [####################                                           ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [######################                                         ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [########################                                       ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [##########################                                     ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [############################                                   ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [##############################                                 ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [################################                               ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [##################################                             ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [###################################                            ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [#####################################                          ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [#######################################                        ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [#########################################                      ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [###########################################                    ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [#############################################                  ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [###############################################                ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [#################################################              ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [###################################################            ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [####################################################           ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [######################################################         ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [########################################################       ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [##########################################################     ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [############################################################   ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64 [############################################################## ]  3/11  Installing : libzpool2-0.7.12-1.el7_5.x86_64                                                                    3/11 
+  Installing : kmod-spl-0.7.12-1.el7_5.x86_64 [                                                                ]  4/11  Installing : kmod-spl-0.7.12-1.el7_5.x86_64 [########                                                        ]  4/11  Installing : kmod-spl-0.7.12-1.el7_5.x86_64 [################                                                ]  4/11  Installing : kmod-spl-0.7.12-1.el7_5.x86_64 [########################                                        ]  4/11  Installing : kmod-spl-0.7.12-1.el7_5.x86_64 [################################                                ]  4/11  Installing : kmod-spl-0.7.12-1.el7_5.x86_64 [#########################################                       ]  4/11  Installing : kmod-spl-0.7.12-1.el7_5.x86_64 [#################################################               ]  4/11  Installing : kmod-spl-0.7.12-1.el7_5.x86_64 [##########################################################      ]  4/11  Installing : kmod-spl-0.7.12-1.el7_5.x86_64 [############################################################### ]  4/11  Installing : kmod-spl-0.7.12-1.el7_5.x86_64                                                                     4/11 
+  Installing : spl-0.7.12-1.el7_5.x86_64 [                                                                     ]  5/11  Installing : spl-0.7.12-1.el7_5.x86_64 [######                                                               ]  5/11  Installing : spl-0.7.12-1.el7_5.x86_64 [#################################                                    ]  5/11  Installing : spl-0.7.12-1.el7_5.x86_64 [###################################                                  ]  5/11  Installing : spl-0.7.12-1.el7_5.x86_64 [###########################################################          ]  5/11  Installing : spl-0.7.12-1.el7_5.x86_64 [#############################################################        ]  5/11  Installing : spl-0.7.12-1.el7_5.x86_64 [##############################################################       ]  5/11  Installing : spl-0.7.12-1.el7_5.x86_64 [#################################################################### ]  5/11  Installing : spl-0.7.12-1.el7_5.x86_64                                                                          5/11 
+  Installing : libzfs2-0.7.12-1.el7_5.x86_64 [                                                                 ]  6/11  Installing : libzfs2-0.7.12-1.el7_5.x86_64 [############                                                     ]  6/11  Installing : libzfs2-0.7.12-1.el7_5.x86_64 [#########################                                        ]  6/11  Installing : libzfs2-0.7.12-1.el7_5.x86_64 [######################################                           ]  6/11  Installing : libzfs2-0.7.12-1.el7_5.x86_64 [###################################################              ]  6/11  Installing : libzfs2-0.7.12-1.el7_5.x86_64 [############################################################     ]  6/11  Installing : libzfs2-0.7.12-1.el7_5.x86_64 [################################################################ ]  6/11  Installing : libzfs2-0.7.12-1.el7_5.x86_64                                                                      6/11 
+  Installing : lm_sensors-libs-3.4.0-8.20160601gitf9185e5.el7. [                                               ]  7/11  Installing : lm_sensors-libs-3.4.0-8.20160601gitf9185e5.el7. [############################################## ]  7/11  Installing : lm_sensors-libs-3.4.0-8.20160601gitf9185e5.el7.x86_64                                              7/11 
+  Installing : sysstat-10.1.5-19.el7.x86_64 [                                                                  ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [##                                                                ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [######                                                            ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [#########                                                         ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [############                                                      ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [###############                                                   ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [################                                                  ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [###################                                               ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [#######################                                           ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [#########################                                         ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [#############################                                     ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [###############################                                   ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [##################################                                ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [######################################                            ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [#######################################                           ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [##########################################                        ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [############################################                      ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [#############################################                     ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [###############################################                   ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [################################################                  ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [#################################################                 ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [##################################################                ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [###################################################               ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [####################################################              ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [#####################################################             ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [######################################################            ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [#######################################################           ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [########################################################          ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [#########################################################         ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [##########################################################        ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [###########################################################       ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [############################################################      ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [#############################################################     ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [##############################################################    ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [###############################################################   ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [################################################################  ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64 [################################################################# ]  8/11  Installing : sysstat-10.1.5-19.el7.x86_64                                                                       8/11 
+  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [                                                                ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [#                                                               ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [###                                                             ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [#####                                                           ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [######                                                          ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [#######                                                         ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [########                                                        ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [##########                                                      ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [############                                                    ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [#############                                                   ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [##############                                                  ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [################                                                ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [#################                                               ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [###################                                             ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [#####################                                           ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [#######################                                         ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [########################                                        ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [##########################                                      ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [############################                                    ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [##############################                                  ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [################################                                ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [#################################                               ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [###################################                             ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [#####################################                           ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [#######################################                         ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [########################################                        ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [##########################################                      ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [############################################                    ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [##############################################                  ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [################################################                ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [#################################################               ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [###################################################             ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [#####################################################           ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [#######################################################         ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [########################################################        ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [##########################################################      ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [############################################################    ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [##############################################################  ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64 [############################################################### ]  9/11  Installing : kmod-zfs-0.7.12-1.el7_5.x86_64                                                                     9/11 
+  Installing : zfs-0.7.12-1.el7_5.x86_64 [                                                                     ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [#                                                                    ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [##                                                                   ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [######                                                               ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [########                                                             ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [###########                                                          ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [#############                                                        ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [#################                                                    ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [####################                                                 ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [######################                                               ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [########################                                             ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [############################                                         ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [###############################                                      ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [#################################                                    ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [##################################                                   ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [#####################################                                ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [#########################################                            ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [###########################################                          ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [############################################                         ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [##############################################                       ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [###############################################                      ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [################################################                     ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [#################################################                    ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [##################################################                   ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [###################################################                  ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [####################################################                 ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [#####################################################                ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [######################################################               ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [#######################################################              ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [########################################################             ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [#########################################################            ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [##########################################################           ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [###########################################################          ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [############################################################         ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [#############################################################        ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [##############################################################       ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [###############################################################      ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [################################################################     ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [#################################################################    ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [##################################################################   ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [###################################################################  ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64 [#################################################################### ] 10/11  Installing : zfs-0.7.12-1.el7_5.x86_64                                                                         10/11 
+  Installing : zfs-dracut-0.7.12-1.el7_5.x86_64 [                                                              ] 11/11  Installing : zfs-dracut-0.7.12-1.el7_5.x86_64 [#########                                                     ] 11/11  Installing : zfs-dracut-0.7.12-1.el7_5.x86_64 [###########                                                   ] 11/11  Installing : zfs-dracut-0.7.12-1.el7_5.x86_64 [#################                                             ] 11/11  Installing : zfs-dracut-0.7.12-1.el7_5.x86_64 [######################                                        ] 11/11  Installing : zfs-dracut-0.7.12-1.el7_5.x86_64 [###########################                                   ] 11/11  Installing : zfs-dracut-0.7.12-1.el7_5.x86_64 [################################                              ] 11/11  Installing : zfs-dracut-0.7.12-1.el7_5.x86_64 [#####################################                         ] 11/11  Installing : zfs-dracut-0.7.12-1.el7_5.x86_64 [######################################                        ] 11/11  Installing : zfs-dracut-0.7.12-1.el7_5.x86_64 [#######################################                       ] 11/11  Installing : zfs-dracut-0.7.12-1.el7_5.x86_64 [############################################################# ] 11/11  Installing : zfs-dracut-0.7.12-1.el7_5.x86_64                                                                  11/11 
+  Verifying  : libzfs2-0.7.12-1.el7_5.x86_64                                                                      1/11 
+  Verifying  : spl-0.7.12-1.el7_5.x86_64                                                                          2/11 
+  Verifying  : sysstat-10.1.5-19.el7.x86_64                                                                       3/11 
+  Verifying  : zfs-0.7.12-1.el7_5.x86_64                                                                          4/11 
+  Verifying  : libzpool2-0.7.12-1.el7_5.x86_64                                                                    5/11 
+  Verifying  : zfs-dracut-0.7.12-1.el7_5.x86_64                                                                   6/11 
+  Verifying  : libuutil1-0.7.12-1.el7_5.x86_64                                                                    7/11 
+  Verifying  : kmod-spl-0.7.12-1.el7_5.x86_64                                                                     8/11 
+  Verifying  : kmod-zfs-0.7.12-1.el7_5.x86_64                                                                     9/11 
+  Verifying  : libnvpair1-0.7.12-1.el7_5.x86_64                                                                  10/11 
+  Verifying  : lm_sensors-libs-3.4.0-8.20160601gitf9185e5.el7.x86_64                                             11/11 
+
+Installed:
+  zfs.x86_64 0:0.7.12-1.el7_5                            zfs-dracut.x86_64 0:0.7.12-1.el7_5                           
+
+Dependency Installed:
+  kmod-spl.x86_64 0:0.7.12-1.el7_5                                      kmod-zfs.x86_64 0:0.7.12-1.el7_5               
+  libnvpair1.x86_64 0:0.7.12-1.el7_5                                    libuutil1.x86_64 0:0.7.12-1.el7_5              
+  libzfs2.x86_64 0:0.7.12-1.el7_5                                       libzpool2.x86_64 0:0.7.12-1.el7_5              
+  lm_sensors-libs.x86_64 0:3.4.0-8.20160601gitf9185e5.el7               spl.x86_64 0:0.7.12-1.el7_5                    
+  sysstat.x86_64 0:10.1.5-19.el7                                       
+
+Complete!
+]0;vagrant@lvm:~[vagrant@lvm ~]$ sudo [K[K[K[K[Ksudo lsmod | grep zfs
+]0;vagrant@lvm:~[vagrant@lvm ~]$ sudo modprobe zfs
+]0;vagrant@lvm:~[vagrant@lvm ~]$ sudo modprobe zfs[4@lsmod | grep[C[C[C[C
+[01;31m[Kzfs[m[K                  3564468  0 
+zunicode              331170  1 [01;31m[Kzfs[m[K
+zavl                   15236  1 [01;31m[Kzfs[m[K
+icp                   270148  1 [01;31m[Kzfs[m[K
+zcommon                73440  1 [01;31m[Kzfs[m[K
+znvpair                89131  2 [01;31m[Kzfs[m[K,zcommon
+spl                   102412  4 icp,[01;31m[Kzfs[m[K,zcommon,znvpair
+]0;vagrant@lvm:~[vagrant@lvm ~]$ sudo vi /etc[K[K[K[K[K[K[Ktouch /etc/n[Kmodules-load.d/modules.conf
+]0;vagrant@lvm:~[vagrant@lvm ~]$ vi sudo touch /etc/modules-load.d/modules.conf[1P /etc/modules-load.d/modules.conf[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P /etc/modules-load.d/modules.conf[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P /etc/modules-load.d/modules.conf[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P /etc/modules-load.d/modules.conf[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P /etc/modules-load.d/modules.conf[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cv /etc/modules-load.d/modules.conf[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ci /etc/modules-load.d/modules.conf[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+[?1049h[?1h=[1;53r[?12;25h[?12l[?25h[27m[m[H[2J[?25l[53;1H"/etc/modules-load.d/modules.conf" 0L, 0C[2;1H[94m~                                                                                                                      [3;1H~                                                                                                                      [4;1H~                                                                                                                      [5;1H~                                                                                                                      [6;1H~                                                                                                                      [7;1H~                                                                                                                      [8;1H~                                                                                                                      [9;1H~                                                                                                                      [10;1H~                                                                                                                      [11;1H~                                                                                                                      [12;1H~                                                                                                                      [13;1H~                                                                                                                      [14;1H~                                                                                                                      [15;1H~                                                                                                                      [16;1H~                                                                                                                      [17;1H~                                                                                                                      [18;1H~                                                                                                                      [19;1H~                                                                                                                      [20;1H~                                                                                                                      [21;1H~                                                                                                                      [22;1H~                                                                                                                      [23;1H~                                                                                                                      [24;1H~                                                                                                                      [25;1H~                                                                                                                      [26;1H~                                                                                                                      [27;1H~                                                                                                                      [28;1H~                                                                                                                      [29;1H~                                                                                                                      [30;1H~                                                                                                                      [31;1H~                                                                                                                      [32;1H~                                                                                                                      [33;1H~                                                                                                                      [34;1H~                                                                                                                      [35;1H~                                                                                                                      [36;1H~                                                                                                                      [37;1H~                                                                                                                      [38;1H~                                                                                                                      [39;1H~                                                                                                                      [40;1H~                                                                                                                      [41;1H~                                                                                                                      [42;1H~                                                                                                                      [43;1H~                                                                                                                      [44;1H~                                                                                                                      [45;1H~                                                                                                                      [46;1H~                                                                                                                      [47;1H~                                                                                                                      [48;1H~                                                                                                                      [49;1H~                                                                                                                      [50;1H~                                                                                                                      [51;1H~                                                                                                                      [52;1H~                                                                                                                      [1;1H[?12l[?25h[?25l[m[53;1H[1m-- INSERT --[m[53;13H[K[1;1H[?12l[?25h[?25lz[?12l[?25h[?25lf[?12l[?25h[?25ls[?12l[?25h[53;1H[K[1;3H[?25l[?12l[?25h[?25l[53;1H"/etc/modules-load.d/modules.conf" 1L, 4C written
+[?1l>[?12l[?25h[?1049l]0;vagrant@lvm:~[vagrant@lvm ~]$ cat /etcsudo vi /etc/modules-load.d/modules.conf[1P/etc/modules-load.d/modules.conf[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P/etc/modules-load.d/modules.conf[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P/etc/modules-load.d/modules.conf[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P/etc/modules-load.d/modules.conf[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P/etc/modules-load.d/modules.conf[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P/etc/modules-load.d/modules.conf[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P/etc/modules-load.d/modules.conf[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P/etc/modules-load.d/modules.conf[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cc/etc/modules-load.d/modules.conf[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ca/etc/modules-load.d/modules.conf[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ct/etc/modules-load.d/modules.conf[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+-bash: cat/etc/modules-load.d/modules.conf: No such file or directory
+]0;vagrant@lvm:~[vagrant@lvm ~]$ cat/etc/modules-load.d/modules.conf etc/modules-load.d/modules.conf[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P etc/modules-load.d/modules.conf[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@ [1P[C[C/etc/modules-load.d/modules.conf[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+zfs
+]0;vagrant@lvm:~[vagrant@lvm ~]$ sudo zpool create -f -o ashift=12 optpool /dev/sda
+]0;vagrant@lvm:~[vagrant@lvm ~]$ sudo zpool create -f -o ashift=12 optpool /dev/sda[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[14Pcat /etc/modules-load.d/modules.conf[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Csudo zpool create -f -o ashift=12 optpool /dev/sda[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ksudo zpool add optpool[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Ko zfs create optpool/opt
+]0;vagrant@lvm:~[vagrant@lvm ~]$ sudo ln -s /optpool/opt/[K opt[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Ksudo del[K[K[Krm -r /opt[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kcd /
+]0;vagrant@lvm:/[vagrant@lvm /]$ ls -l
+total 29
+lrwxrwxrwx.   1 root    root       7 Nov  7 15:01 [0m[38;5;51mbin[0m -> [38;5;27musr/bin[0m
+dr-xr-xr-x.   5 root    root    4096 Nov  7 17:43 [38;5;27mboot[0m
+drwxr-xr-x.  19 root    root    3340 Nov  7 17:47 [38;5;27mdev[0m
+drwxr-xr-x.  78 root    root    8192 Nov  7 17:43 [38;5;27metc[0m
+drwxr-xr-x.   5 root    root    4096 Nov  7 17:25 [38;5;27mhome[0m
+lrwxrwxrwx.   1 root    root       7 Nov  7 15:01 [38;5;51mlib[0m -> [38;5;27musr/lib[0m
+lrwxrwxrwx.   1 root    root       9 Nov  7 15:01 [38;5;51mlib64[0m -> [38;5;27musr/lib64[0m
+drwxr-xr-x.   2 root    root       6 Apr 11  2018 [38;5;27mmedia[0m
+drwxr-xr-x.   2 root    root       6 Apr 11  2018 [38;5;27mmnt[0m
+drwxr-xr-x.   2 root    root       6 Apr 11  2018 [38;5;27mopt[0m
+drwxr-xr-x.   3 root    root       3 Nov  7 17:49 [38;5;27moptpool[0m
+dr-xr-xr-x. 247 root    root       0 Nov  7 17:01 [38;5;27mproc[0m
+drwxr-xr-x.   4 vagrant vagrant  118 Nov  7 13:26 [38;5;27mprovision[0m
+dr-xr-x---.   2 root    root     158 Nov  7 14:59 [38;5;27mroot[0m
+drwxr-xr-x.  26 root    root     860 Nov  7 17:43 [38;5;27mrun[0m
+lrwxrwxrwx.   1 root    root       8 Nov  7 15:01 [38;5;51msbin[0m -> [38;5;27musr/sbin[0m
+drwxr-xr-x.   2 root    root       6 Apr 11  2018 [38;5;27msrv[0m
+dr-xr-xr-x.  13 root    root       0 Nov  7 17:01 [38;5;27msys[0m
+drwxr-xr-x.   2 root    root       6 Nov  7 15:09 [38;5;27mtemphome[0m
+drwxr-xr-x.   2 root    root       6 Nov  7 15:28 [38;5;27mtempvar[0m
+drwxrwxrwt.  10 root    root    4096 Nov  7 17:49 [48;5;10;38;5;16mtmp[0m
+drwxr-xr-x.  13 root    root     155 May 12  2018 [38;5;27musr[0m
+drwxr-xr-x.   4 vagrant vagrant  118 Nov  7 13:26 [38;5;27mvagrant[0m
+drwxr-xr-x.  19 root    root    4096 Nov  7 15:38 [38;5;27mvar[0m
+]0;vagrant@lvm:/[vagrant@lvm /]$ rm -r /opt
+rm: remove write-protected directory ‘/opt’? y
+rm: cannot remove ‘/opt’: Permission denied
+]0;vagrant@lvm:/[vagrant@lvm /]$ rm -r /opt[1@ [1@s[1@u[1@d[1@o
+]0;vagrant@lvm:/[vagrant@lvm /]$ sudo rm -r /opt[5P[C[C[C[C[C[C[C[C[C[C[5Pls -l
+total 29
+lrwxrwxrwx.   1 root    root       7 Nov  7 15:01 [0m[38;5;51mbin[0m -> [38;5;27musr/bin[0m
+dr-xr-xr-x.   5 root    root    4096 Nov  7 17:43 [38;5;27mboot[0m
+drwxr-xr-x.  19 root    root    3340 Nov  7 17:47 [38;5;27mdev[0m
+drwxr-xr-x.  78 root    root    8192 Nov  7 17:43 [38;5;27metc[0m
+drwxr-xr-x.   5 root    root    4096 Nov  7 17:25 [38;5;27mhome[0m
+lrwxrwxrwx.   1 root    root       7 Nov  7 15:01 [38;5;51mlib[0m -> [38;5;27musr/lib[0m
+lrwxrwxrwx.   1 root    root       9 Nov  7 15:01 [38;5;51mlib64[0m -> [38;5;27musr/lib64[0m
+drwxr-xr-x.   2 root    root       6 Apr 11  2018 [38;5;27mmedia[0m
+drwxr-xr-x.   2 root    root       6 Apr 11  2018 [38;5;27mmnt[0m
+drwxr-xr-x.   3 root    root       3 Nov  7 17:49 [38;5;27moptpool[0m
+dr-xr-xr-x. 247 root    root       0 Nov  7 17:01 [38;5;27mproc[0m
+drwxr-xr-x.   4 vagrant vagrant  118 Nov  7 13:26 [38;5;27mprovision[0m
+dr-xr-x---.   2 root    root     158 Nov  7 14:59 [38;5;27mroot[0m
+drwxr-xr-x.  26 root    root     860 Nov  7 17:43 [38;5;27mrun[0m
+lrwxrwxrwx.   1 root    root       8 Nov  7 15:01 [38;5;51msbin[0m -> [38;5;27musr/sbin[0m
+drwxr-xr-x.   2 root    root       6 Apr 11  2018 [38;5;27msrv[0m
+dr-xr-xr-x.  13 root    root       0 Nov  7 17:01 [38;5;27msys[0m
+drwxr-xr-x.   2 root    root       6 Nov  7 15:09 [38;5;27mtemphome[0m
+drwxr-xr-x.   2 root    root       6 Nov  7 15:28 [38;5;27mtempvar[0m
+drwxrwxrwt.  10 root    root    4096 Nov  7 17:50 [48;5;10;38;5;16mtmp[0m
+drwxr-xr-x.  13 root    root     155 May 12  2018 [38;5;27musr[0m
+drwxr-xr-x.   4 vagrant vagrant  118 Nov  7 13:26 [38;5;27mvagrant[0m
+drwxr-xr-x.  19 root    root    4096 Nov  7 15:38 [38;5;27mvar[0m
+]0;vagrant@lvm:/[vagrant@lvm /]$ ls -[K[K[K[Kln -s /optpool/opt/[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kpwd
+/
+]0;vagrant@lvm:/[vagrant@lvm /]$ ln -s[1@ [1@s[1@u[1@d[1@o[C[1@ [1P[C[C[C[C[C[C /optpool/opt/[K optpool/[K[K[K[K[K
+]0;vagrant@lvm:/[vagrant@lvm /]$ sudo ln -s /optpool/opt opt[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cpwd[Kls -l
+total 29
+lrwxrwxrwx.   1 root    root       7 Nov  7 15:01 [0m[38;5;51mbin[0m -> [38;5;27musr/bin[0m
+dr-xr-xr-x.   5 root    root    4096 Nov  7 17:43 [38;5;27mboot[0m
+drwxr-xr-x.  19 root    root    3340 Nov  7 17:47 [38;5;27mdev[0m
+drwxr-xr-x.  78 root    root    8192 Nov  7 17:43 [38;5;27metc[0m
+drwxr-xr-x.   5 root    root    4096 Nov  7 17:25 [38;5;27mhome[0m
+lrwxrwxrwx.   1 root    root       7 Nov  7 15:01 [38;5;51mlib[0m -> [38;5;27musr/lib[0m
+lrwxrwxrwx.   1 root    root       9 Nov  7 15:01 [38;5;51mlib64[0m -> [38;5;27musr/lib64[0m
+drwxr-xr-x.   2 root    root       6 Apr 11  2018 [38;5;27mmedia[0m
+drwxr-xr-x.   2 root    root       6 Apr 11  2018 [38;5;27mmnt[0m
+lrwxrwxrwx.   1 root    root      12 Nov  7 17:51 [38;5;51mopt[0m -> [38;5;27m/optpool/opt[0m
+drwxr-xr-x.   3 root    root       3 Nov  7 17:49 [38;5;27moptpool[0m
+dr-xr-xr-x. 247 root    root       0 Nov  7 17:01 [38;5;27mproc[0m
+drwxr-xr-x.   4 vagrant vagrant  118 Nov  7 13:26 [38;5;27mprovision[0m
+dr-xr-x---.   2 root    root     158 Nov  7 14:59 [38;5;27mroot[0m
+drwxr-xr-x.  26 root    root     860 Nov  7 17:43 [38;5;27mrun[0m
+lrwxrwxrwx.   1 root    root       8 Nov  7 15:01 [38;5;51msbin[0m -> [38;5;27musr/sbin[0m
+drwxr-xr-x.   2 root    root       6 Apr 11  2018 [38;5;27msrv[0m
+dr-xr-xr-x.  13 root    root       0 Nov  7 17:01 [38;5;27msys[0m
+drwxr-xr-x.   2 root    root       6 Nov  7 15:09 [38;5;27mtemphome[0m
+drwxr-xr-x.   2 root    root       6 Nov  7 15:28 [38;5;27mtempvar[0m
+drwxrwxrwt.  10 root    root    4096 Nov  7 17:51 [48;5;10;38;5;16mtmp[0m
+drwxr-xr-x.  13 root    root     155 May 12  2018 [38;5;27musr[0m
+drwxr-xr-x.   4 vagrant vagrant  118 Nov  7 13:26 [38;5;27mvagrant[0m
+drwxr-xr-x.  19 root    root    4096 Nov  7 15:38 [38;5;27mvar[0m
+]0;vagrant@lvm:/[vagrant@lvm /]$ zfs list
+NAME          USED  AVAIL  REFER  MOUNTPOINT
+optpool       412K  9.63G   100K  /optpool
+optpool/opt    96K  9.63G    96K  /optpool/opt
+]0;vagrant@lvm:/[vagrant@lvm /]$ z[Ksudo touch /opt
+opt/     optpool/ 
+[vagrant@lvm /]$ sudo touch /opt [K/t{1..10}
+]0;vagrant@lvm:/[vagrant@lvm /]$ ls -l /opt
+lrwxrwxrwx. 1 root root 12 Nov  7 17:51 [0m[38;5;51m/opt[0m -> [38;5;27m/optpool/opt[0m
+]0;vagrant@lvm:/[vagrant@lvm /]$ ls -l /opt/
+total 5
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t1
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t10
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t2
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t3
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t4
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t5
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t6
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t7
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t8
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t9
+]0;vagrant@lvm:/[vagrant@lvm /]$ zfs -get-all[1Pget-all
+unrecognized command 'get-all'
+usage: zfs command args ...
+where 'command' is one of the following:
+
+	create [-p] [-o property=value] ... <filesystem>
+	create [-ps] [-b blocksize] [-o property=value] ... -V <size> <volume>
+	destroy [-fnpRrv] <filesystem|volume>
+	destroy [-dnpRrv] <filesystem|volume>@<snap>[%<snap>][,...]
+	destroy <filesystem|volume>#<bookmark>
+
+	snapshot|snap [-r] [-o property=value] ... <filesystem|volume>@<snap> ...
+	rollback [-rRf] <snapshot>
+	clone [-p] [-o property=value] ... <snapshot> <filesystem|volume>
+	promote <clone-filesystem>
+	rename [-f] <filesystem|volume|snapshot> <filesystem|volume|snapshot>
+	rename [-f] -p <filesystem|volume> <filesystem|volume>
+	rename -r <snapshot> <snapshot>
+	bookmark <snapshot> <bookmark>
+
+	list [-Hp] [-r|-d max] [-o property[,...]] [-s property]...
+	    [-S property]... [-t type[,...]] [filesystem|volume|snapshot] ...
+
+	set <property=value> ... <filesystem|volume|snapshot> ...
+	get [-rHp] [-d max] [-o "all" | field[,...]]
+	    [-t type[,...]] [-s source[,...]]
+	    <"all" | property[,...]> [filesystem|volume|snapshot|bookmark] ...
+	inherit [-rS] <property> <filesystem|volume|snapshot> ...
+	upgrade [-v]
+	upgrade [-r] [-V version] <-a | filesystem ...>
+	userspace [-Hinp] [-o field[,...]] [-s field] ...
+	    [-S field] ... [-t type[,...]] <filesystem|snapshot>
+	groupspace [-Hinp] [-o field[,...]] [-s field] ...
+	    [-S field] ... [-t type[,...]] <filesystem|snapshot>
+
+	mount
+	mount [-vO] [-o opts] <-a | filesystem>
+	unmount [-f] <-a | filesystem|mountpoint>
+	share <-a [nfs|smb] | filesystem>
+	unshare <-a [nfs|smb] | filesystem|mountpoint>
+
+	send [-DnPpRvLec] [-[i|I] snapshot] <snapshot>
+	send [-Lec] [-i snapshot|bookmark] <filesystem|volume|snapshot>
+	send [-nvPe] -t <receive_resume_token>
+	receive [-vnsFu] [-o <property>=<value>] ... [-x <property>] ...
+	    <filesystem|volume|snapshot>
+	receive [-vnsFu] [-o <property>=<value>] ... [-x <property>] ... 
+	    [-d | -e] <filesystem>
+	receive -A <filesystem|volume>
+
+	allow <filesystem|volume>
+	allow [-ldug] <"everyone"|user|group>[,...] <perm|@setname>[,...]
+	    <filesystem|volume>
+	allow [-ld] -e <perm|@setname>[,...] <filesystem|volume>
+	allow -c <perm|@setname>[,...] <filesystem|volume>
+	allow -s @setname <perm|@setname>[,...] <filesystem|volume>
+
+	unallow [-rldug] <"everyone"|user|group>[,...]
+	    [<perm|@setname>[,...]] <filesystem|volume>
+	unallow [-rld] -e [<perm|@setname>[,...]] <filesystem|volume>
+	unallow [-r] -c [<perm|@setname>[,...]] <filesystem|volume>
+	unallow [-r] -s @setname [<perm|@setname>[,...]] <filesystem|volume>
+
+	hold [-r] <tag> <snapshot> ...
+	holds [-r] <snapshot> ...
+	release [-r] <tag> <snapshot> ...
+	diff [-FHt] <snapshot> [snapshot|filesystem]
+
+Each dataset is of the form: pool/[dataset/]*dataset[@name]
+
+For the property list, run: zfs set|get
+
+For the delegated permission list, run: zfs allow|unallow
+]0;vagrant@lvm:/[vagrant@lvm /]$ zfs get-all[1Pall all
+NAME         PROPERTY              VALUE                  SOURCE
+optpool      type                  filesystem             -
+optpool      creation              Sun Nov  7 17:47 2021  -
+optpool      used                  460K                   -
+optpool      available             9.63G                  -
+optpool      referenced            100K                   -
+optpool      compressratio         1.00x                  -
+optpool      mounted               yes                    -
+optpool      quota                 none                   default
+optpool      reservation           none                   default
+optpool      recordsize            128K                   default
+optpool      mountpoint            /optpool               default
+optpool      sharenfs              off                    default
+optpool      checksum              on                     default
+optpool      compression           off                    default
+optpool      atime                 on                     default
+optpool      devices               on                     default
+optpool      exec                  on                     default
+optpool      setuid                on                     default
+optpool      readonly              off                    default
+optpool      zoned                 off                    default
+optpool      snapdir               hidden                 default
+optpool      aclinherit            restricted             default
+optpool      createtxg             1                      -
+optpool      canmount              on                     default
+optpool      xattr                 on                     default
+optpool      copies                1                      default
+optpool      version               5                      -
+optpool      utf8only              off                    -
+optpool      normalization         none                   -
+optpool      casesensitivity       sensitive              -
+optpool      vscan                 off                    default
+optpool      nbmand                off                    default
+optpool      sharesmb              off                    default
+optpool      refquota              none                   default
+optpool      refreservation        none                   default
+optpool      guid                  8553015712609831145    -
+optpool      primarycache          all                    default
+optpool      secondarycache        all                    default
+optpool      usedbysnapshots       0B                     -
+optpool      usedbydataset         100K                   -
+optpool      usedbychildren        360K                   -
+optpool      usedbyrefreservation  0B                     -
+optpool      logbias               latency                default
+optpool      dedup                 off                    default
+optpool      mlslabel              none                   default
+optpool      sync                  standard               default
+optpool      dnodesize             legacy                 default
+optpool      refcompressratio      1.00x                  -
+optpool      written               100K                   -
+optpool      logicalused           148K                   -
+optpool      logicalreferenced     40.5K                  -
+optpool      volmode               default                default
+optpool      filesystem_limit      none                   default
+optpool      snapshot_limit        none                   default
+optpool      filesystem_count      none                   default
+optpool      snapshot_count        none                   default
+optpool      snapdev               hidden                 default
+optpool      acltype               off                    default
+optpool      context               none                   default
+optpool      fscontext             none                   default
+optpool      defcontext            none                   default
+optpool      rootcontext           none                   default
+optpool      relatime              off                    default
+optpool      redundant_metadata    all                    default
+optpool      overlay               off                    default
+optpool/opt  type                  filesystem             -
+optpool/opt  creation              Sun Nov  7 17:49 2021  -
+optpool/opt  used                  144K                   -
+optpool/opt  available             9.63G                  -
+optpool/opt  referenced            144K                   -
+optpool/opt  compressratio         1.00x                  -
+optpool/opt  mounted               yes                    -
+optpool/opt  quota                 none                   default
+optpool/opt  reservation           none                   default
+optpool/opt  recordsize            128K                   default
+optpool/opt  mountpoint            /optpool/opt           default
+optpool/opt  sharenfs              off                    default
+optpool/opt  checksum              on                     default
+optpool/opt  compression           off                    default
+optpool/opt  atime                 on                     default
+optpool/opt  devices               on                     default
+optpool/opt  exec                  on                     default
+optpool/opt  setuid                on                     default
+optpool/opt  readonly              off                    default
+optpool/opt  zoned                 off                    default
+optpool/opt  snapdir               hidden                 default
+optpool/opt  aclinherit            restricted             default
+optpool/opt  createtxg             27                     -
+optpool/opt  canmount              on                     default
+optpool/opt  xattr                 on                     default
+optpool/opt  copies                1                      default
+optpool/opt  version               5                      -
+optpool/opt  utf8only              off                    -
+optpool/opt  normalization         none                   -
+optpool/opt  casesensitivity       sensitive              -
+optpool/opt  vscan                 off                    default
+optpool/opt  nbmand                off                    default
+optpool/opt  sharesmb              off                    default
+optpool/opt  refquota              none                   default
+optpool/opt  refreservation        none                   default
+optpool/opt  guid                  605713155098230232     -
+optpool/opt  primarycache          all                    default
+optpool/opt  secondarycache        all                    default
+optpool/opt  usedbysnapshots       0B                     -
+optpool/opt  usedbydataset         144K                   -
+optpool/opt  usedbychildren        0B                     -
+optpool/opt  usedbyrefreservation  0B                     -
+optpool/opt  logbias               latency                default
+optpool/opt  dedup                 off                    default
+optpool/opt  mlslabel              none                   default
+optpool/opt  sync                  standard               default
+optpool/opt  dnodesize             legacy                 default
+optpool/opt  refcompressratio      1.00x                  -
+optpool/opt  written               144K                   -
+optpool/opt  logicalused           46K                    -
+optpool/opt  logicalreferenced     46K                    -
+optpool/opt  volmode               default                default
+optpool/opt  filesystem_limit      none                   default
+optpool/opt  snapshot_limit        none                   default
+optpool/opt  filesystem_count      none                   default
+optpool/opt  snapshot_count        none                   default
+optpool/opt  snapdev               hidden                 default
+optpool/opt  acltype               off                    default
+optpool/opt  context               none                   default
+optpool/opt  fscontext             none                   default
+optpool/opt  defcontext            none                   default
+optpool/opt  rootcontext           none                   default
+optpool/opt  relatime              off                    default
+optpool/opt  redundant_metadata    all                    default
+optpool/opt  overlay               off                    default
+]0;vagrant@lvm:/[vagrant@lvm /]$ zfs get all[C[1@ [1@/[1P[1@o[1@p[1@t[1@p[1@o[1@o[1@l[1@/[1@o[1@p[1@t
+unrecognized command 'optpool/opt'
+usage: zfs command args ...
+where 'command' is one of the following:
+
+	create [-p] [-o property=value] ... <filesystem>
+	create [-ps] [-b blocksize] [-o property=value] ... -V <size> <volume>
+	destroy [-fnpRrv] <filesystem|volume>
+	destroy [-dnpRrv] <filesystem|volume>@<snap>[%<snap>][,...]
+	destroy <filesystem|volume>#<bookmark>
+
+	snapshot|snap [-r] [-o property=value] ... <filesystem|volume>@<snap> ...
+	rollback [-rRf] <snapshot>
+	clone [-p] [-o property=value] ... <snapshot> <filesystem|volume>
+	promote <clone-filesystem>
+	rename [-f] <filesystem|volume|snapshot> <filesystem|volume|snapshot>
+	rename [-f] -p <filesystem|volume> <filesystem|volume>
+	rename -r <snapshot> <snapshot>
+	bookmark <snapshot> <bookmark>
+
+	list [-Hp] [-r|-d max] [-o property[,...]] [-s property]...
+	    [-S property]... [-t type[,...]] [filesystem|volume|snapshot] ...
+
+	set <property=value> ... <filesystem|volume|snapshot> ...
+	get [-rHp] [-d max] [-o "all" | field[,...]]
+	    [-t type[,...]] [-s source[,...]]
+	    <"all" | property[,...]> [filesystem|volume|snapshot|bookmark] ...
+	inherit [-rS] <property> <filesystem|volume|snapshot> ...
+	upgrade [-v]
+	upgrade [-r] [-V version] <-a | filesystem ...>
+	userspace [-Hinp] [-o field[,...]] [-s field] ...
+	    [-S field] ... [-t type[,...]] <filesystem|snapshot>
+	groupspace [-Hinp] [-o field[,...]] [-s field] ...
+	    [-S field] ... [-t type[,...]] <filesystem|snapshot>
+
+	mount
+	mount [-vO] [-o opts] <-a | filesystem>
+	unmount [-f] <-a | filesystem|mountpoint>
+	share <-a [nfs|smb] | filesystem>
+	unshare <-a [nfs|smb] | filesystem|mountpoint>
+
+	send [-DnPpRvLec] [-[i|I] snapshot] <snapshot>
+	send [-Lec] [-i snapshot|bookmark] <filesystem|volume|snapshot>
+	send [-nvPe] -t <receive_resume_token>
+	receive [-vnsFu] [-o <property>=<value>] ... [-x <property>] ...
+	    <filesystem|volume|snapshot>
+	receive [-vnsFu] [-o <property>=<value>] ... [-x <property>] ... 
+	    [-d | -e] <filesystem>
+	receive -A <filesystem|volume>
+
+	allow <filesystem|volume>
+	allow [-ldug] <"everyone"|user|group>[,...] <perm|@setname>[,...]
+	    <filesystem|volume>
+	allow [-ld] -e <perm|@setname>[,...] <filesystem|volume>
+	allow -c <perm|@setname>[,...] <filesystem|volume>
+	allow -s @setname <perm|@setname>[,...] <filesystem|volume>
+
+	unallow [-rldug] <"everyone"|user|group>[,...]
+	    [<perm|@setname>[,...]] <filesystem|volume>
+	unallow [-rld] -e [<perm|@setname>[,...]] <filesystem|volume>
+	unallow [-r] -c [<perm|@setname>[,...]] <filesystem|volume>
+	unallow [-r] -s @setname [<perm|@setname>[,...]] <filesystem|volume>
+
+	hold [-r] <tag> <snapshot> ...
+	holds [-r] <snapshot> ...
+	release [-r] <tag> <snapshot> ...
+	diff [-FHt] <snapshot> [snapshot|filesystem]
+
+Each dataset is of the form: pool/[dataset/]*dataset[@name]
+
+For the property list, run: zfs set|get
+
+For the delegated permission list, run: zfs allow|unallow
+]0;vagrant@lvm:/[vagrant@lvm /]$ zfs optpool/opt get all[1@ [C[C[C[C[C[C[C[C[C[C[C[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[C[C[C[C[C[C[C[C opptpool[K[K[K[K[K[Ktpool/opt
+NAME         PROPERTY              VALUE                  SOURCE
+optpool/opt  type                  filesystem             -
+optpool/opt  creation              Sun Nov  7 17:49 2021  -
+optpool/opt  used                  144K                   -
+optpool/opt  available             9.63G                  -
+optpool/opt  referenced            144K                   -
+optpool/opt  compressratio         1.00x                  -
+optpool/opt  mounted               yes                    -
+optpool/opt  quota                 none                   default
+optpool/opt  reservation           none                   default
+optpool/opt  recordsize            128K                   default
+optpool/opt  mountpoint            /optpool/opt           default
+optpool/opt  sharenfs              off                    default
+optpool/opt  checksum              on                     default
+optpool/opt  compression           off                    default
+optpool/opt  atime                 on                     default
+optpool/opt  devices               on                     default
+optpool/opt  exec                  on                     default
+optpool/opt  setuid                on                     default
+optpool/opt  readonly              off                    default
+optpool/opt  zoned                 off                    default
+optpool/opt  snapdir               hidden                 default
+optpool/opt  aclinherit            restricted             default
+optpool/opt  createtxg             27                     -
+optpool/opt  canmount              on                     default
+optpool/opt  xattr                 on                     default
+optpool/opt  copies                1                      default
+optpool/opt  version               5                      -
+optpool/opt  utf8only              off                    -
+optpool/opt  normalization         none                   -
+optpool/opt  casesensitivity       sensitive              -
+optpool/opt  vscan                 off                    default
+optpool/opt  nbmand                off                    default
+optpool/opt  sharesmb              off                    default
+optpool/opt  refquota              none                   default
+optpool/opt  refreservation        none                   default
+optpool/opt  guid                  605713155098230232     -
+optpool/opt  primarycache          all                    default
+optpool/opt  secondarycache        all                    default
+optpool/opt  usedbysnapshots       0B                     -
+optpool/opt  usedbydataset         144K                   -
+optpool/opt  usedbychildren        0B                     -
+optpool/opt  usedbyrefreservation  0B                     -
+optpool/opt  logbias               latency                default
+optpool/opt  dedup                 off                    default
+optpool/opt  mlslabel              none                   default
+optpool/opt  sync                  standard               default
+optpool/opt  dnodesize             legacy                 default
+optpool/opt  refcompressratio      1.00x                  -
+optpool/opt  written               144K                   -
+optpool/opt  logicalused           46K                    -
+optpool/opt  logicalreferenced     46K                    -
+optpool/opt  volmode               default                default
+optpool/opt  filesystem_limit      none                   default
+optpool/opt  snapshot_limit        none                   default
+optpool/opt  filesystem_count      none                   default
+optpool/opt  snapshot_count        none                   default
+optpool/opt  snapdev               hidden                 default
+optpool/opt  acltype               off                    default
+optpool/opt  context               none                   default
+optpool/opt  fscontext             none                   default
+optpool/opt  defcontext            none                   default
+optpool/opt  rootcontext           none                   default
+optpool/opt  relatime              off                    default
+optpool/opt  redundant_metadata    all                    default
+optpool/opt  overlay               off                    default
+]0;vagrant@lvm:/[vagrant@lvm /]$ zfs get all optpool/opt | compression[C compressiong compressionr compressione compressionp compression
+optpool/opt  [01;31m[Kcompression[m[K           off                    default
+]0;vagrant@lvm:/[vagrant@lvm /]$ zfs get all optpool/opt | grep compression[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Kzfs set compression [K=lz4 optpool/opt
+cannot set property for 'optpool/opt': permission denied
+]0;vagrant@lvm:/[vagrant@lvm /]$ zfs set compression=lz4 optpool/opt[1@s[1@u[1@d[1@o[1@ 
+]0;vagrant@lvm:/[vagrant@lvm /]$ sudo zfs set compression=lz4 optpool/opt[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cget all optpool/opt | grep compression
+optpool/opt  [01;31m[Kcompression[m[K           lz4                    local
+]0;vagrant@lvm:/[vagrant@lvm /]$ z[Ksudo zfs snapshot /[Koptpool/opt@snapv1[K[K10112021
+]0;vagrant@lvm:/[vagrant@lvm /]$ zfs list[1@ [1@s[1@u[1@d[1@o
+NAME          USED  AVAIL  REFER  MOUNTPOINT
+optpool       460K  9.63G   100K  /optpool
+optpool/opt   144K  9.63G   144K  /optpool/opt
+]0;vagrant@lvm:/[vagrant@lvm /]$ sudo zfs list list- listr list
+unrecognized command '-r'
+usage: zfs command args ...
+where 'command' is one of the following:
+
+	create [-p] [-o property=value] ... <filesystem>
+	create [-ps] [-b blocksize] [-o property=value] ... -V <size> <volume>
+	destroy [-fnpRrv] <filesystem|volume>
+	destroy [-dnpRrv] <filesystem|volume>@<snap>[%<snap>][,...]
+	destroy <filesystem|volume>#<bookmark>
+
+	snapshot|snap [-r] [-o property=value] ... <filesystem|volume>@<snap> ...
+	rollback [-rRf] <snapshot>
+	clone [-p] [-o property=value] ... <snapshot> <filesystem|volume>
+	promote <clone-filesystem>
+	rename [-f] <filesystem|volume|snapshot> <filesystem|volume|snapshot>
+	rename [-f] -p <filesystem|volume> <filesystem|volume>
+	rename -r <snapshot> <snapshot>
+	bookmark <snapshot> <bookmark>
+
+	list [-Hp] [-r|-d max] [-o property[,...]] [-s property]...
+	    [-S property]... [-t type[,...]] [filesystem|volume|snapshot] ...
+
+	set <property=value> ... <filesystem|volume|snapshot> ...
+	get [-rHp] [-d max] [-o "all" | field[,...]]
+	    [-t type[,...]] [-s source[,...]]
+	    <"all" | property[,...]> [filesystem|volume|snapshot|bookmark] ...
+	inherit [-rS] <property> <filesystem|volume|snapshot> ...
+	upgrade [-v]
+	upgrade [-r] [-V version] <-a | filesystem ...>
+	userspace [-Hinp] [-o field[,...]] [-s field] ...
+	    [-S field] ... [-t type[,...]] <filesystem|snapshot>
+	groupspace [-Hinp] [-o field[,...]] [-s field] ...
+	    [-S field] ... [-t type[,...]] <filesystem|snapshot>
+
+	mount
+	mount [-vO] [-o opts] <-a | filesystem>
+	unmount [-f] <-a | filesystem|mountpoint>
+	share <-a [nfs|smb] | filesystem>
+	unshare <-a [nfs|smb] | filesystem|mountpoint>
+
+	send [-DnPpRvLec] [-[i|I] snapshot] <snapshot>
+	send [-Lec] [-i snapshot|bookmark] <filesystem|volume|snapshot>
+	send [-nvPe] -t <receive_resume_token>
+	receive [-vnsFu] [-o <property>=<value>] ... [-x <property>] ...
+	    <filesystem|volume|snapshot>
+	receive [-vnsFu] [-o <property>=<value>] ... [-x <property>] ... 
+	    [-d | -e] <filesystem>
+	receive -A <filesystem|volume>
+
+	allow <filesystem|volume>
+	allow [-ldug] <"everyone"|user|group>[,...] <perm|@setname>[,...]
+	    <filesystem|volume>
+	allow [-ld] -e <perm|@setname>[,...] <filesystem|volume>
+	allow -c <perm|@setname>[,...] <filesystem|volume>
+	allow -s @setname <perm|@setname>[,...] <filesystem|volume>
+
+	unallow [-rldug] <"everyone"|user|group>[,...]
+	    [<perm|@setname>[,...]] <filesystem|volume>
+	unallow [-rld] -e [<perm|@setname>[,...]] <filesystem|volume>
+	unallow [-r] -c [<perm|@setname>[,...]] <filesystem|volume>
+	unallow [-r] -s @setname [<perm|@setname>[,...]] <filesystem|volume>
+
+	hold [-r] <tag> <snapshot> ...
+	holds [-r] <snapshot> ...
+	release [-r] <tag> <snapshot> ...
+	diff [-FHt] <snapshot> [snapshot|filesystem]
+
+Each dataset is of the form: pool/[dataset/]*dataset[@name]
+
+For the property list, run: zfs set|get
+
+For the delegated permission list, run: zfs allow|unallow
+]0;vagrant@lvm:/[vagrant@lvm /]$ sudo zfs -r list[1Plist[1Plist[1Plist[C[C[C[C -f[Kr
+NAME          USED  AVAIL  REFER  MOUNTPOINT
+optpool       460K  9.63G   100K  /optpool
+optpool/opt   144K  9.63G   144K  /optpool/opt
+]0;vagrant@lvm:/[vagrant@lvm /]$ zfs [1@ [1@s[1@u[1@d[1@o[C[1@ [C[C[C[C[Clist -t snapshot
+NAME                       USED  AVAIL  REFER  MOUNTPOINT
+optpool/opt@snap10112021     0B      -   144K  -
+]0;vagrant@lvm:/[vagrant@lvm /]$ sudo zfs add optpool/opt [C[C[C[C[C[C[C[C[C[C[C[C [K[K cahe[K[Kche /dev/d[Ksdb 
+unrecognized command 'add'
+usage: zfs command args ...
+where 'command' is one of the following:
+
+	create [-p] [-o property=value] ... <filesystem>
+	create [-ps] [-b blocksize] [-o property=value] ... -V <size> <volume>
+	destroy [-fnpRrv] <filesystem|volume>
+	destroy [-dnpRrv] <filesystem|volume>@<snap>[%<snap>][,...]
+	destroy <filesystem|volume>#<bookmark>
+
+	snapshot|snap [-r] [-o property=value] ... <filesystem|volume>@<snap> ...
+	rollback [-rRf] <snapshot>
+	clone [-p] [-o property=value] ... <snapshot> <filesystem|volume>
+	promote <clone-filesystem>
+	rename [-f] <filesystem|volume|snapshot> <filesystem|volume|snapshot>
+	rename [-f] -p <filesystem|volume> <filesystem|volume>
+	rename -r <snapshot> <snapshot>
+	bookmark <snapshot> <bookmark>
+
+	list [-Hp] [-r|-d max] [-o property[,...]] [-s property]...
+	    [-S property]... [-t type[,...]] [filesystem|volume|snapshot] ...
+
+	set <property=value> ... <filesystem|volume|snapshot> ...
+	get [-rHp] [-d max] [-o "all" | field[,...]]
+	    [-t type[,...]] [-s source[,...]]
+	    <"all" | property[,...]> [filesystem|volume|snapshot|bookmark] ...
+	inherit [-rS] <property> <filesystem|volume|snapshot> ...
+	upgrade [-v]
+	upgrade [-r] [-V version] <-a | filesystem ...>
+	userspace [-Hinp] [-o field[,...]] [-s field] ...
+	    [-S field] ... [-t type[,...]] <filesystem|snapshot>
+	groupspace [-Hinp] [-o field[,...]] [-s field] ...
+	    [-S field] ... [-t type[,...]] <filesystem|snapshot>
+
+	mount
+	mount [-vO] [-o opts] <-a | filesystem>
+	unmount [-f] <-a | filesystem|mountpoint>
+	share <-a [nfs|smb] | filesystem>
+	unshare <-a [nfs|smb] | filesystem|mountpoint>
+
+	send [-DnPpRvLec] [-[i|I] snapshot] <snapshot>
+	send [-Lec] [-i snapshot|bookmark] <filesystem|volume|snapshot>
+	send [-nvPe] -t <receive_resume_token>
+	receive [-vnsFu] [-o <property>=<value>] ... [-x <property>] ...
+	    <filesystem|volume|snapshot>
+	receive [-vnsFu] [-o <property>=<value>] ... [-x <property>] ... 
+	    [-d | -e] <filesystem>
+	receive -A <filesystem|volume>
+
+	allow <filesystem|volume>
+	allow [-ldug] <"everyone"|user|group>[,...] <perm|@setname>[,...]
+	    <filesystem|volume>
+	allow [-ld] -e <perm|@setname>[,...] <filesystem|volume>
+	allow -c <perm|@setname>[,...] <filesystem|volume>
+	allow -s @setname <perm|@setname>[,...] <filesystem|volume>
+
+	unallow [-rldug] <"everyone"|user|group>[,...]
+	    [<perm|@setname>[,...]] <filesystem|volume>
+	unallow [-rld] -e [<perm|@setname>[,...]] <filesystem|volume>
+	unallow [-r] -c [<perm|@setname>[,...]] <filesystem|volume>
+	unallow [-r] -s @setname [<perm|@setname>[,...]] <filesystem|volume>
+
+	hold [-r] <tag> <snapshot> ...
+	holds [-r] <snapshot> ...
+	release [-r] <tag> <snapshot> ...
+	diff [-FHt] <snapshot> [snapshot|filesystem]
+
+Each dataset is of the form: pool/[dataset/]*dataset[@name]
+
+For the property list, run: zfs set|get
+
+For the delegated permission list, run: zfs allow|unallow
+]0;vagrant@lvm:/[vagrant@lvm /]$ sudo zfs add optpool/opt cache /dev/sdb [C[C[C[C[C[C[1P[1P[1P[1P
+unrecognized command 'add'
+usage: zfs command args ...
+where 'command' is one of the following:
+
+	create [-p] [-o property=value] ... <filesystem>
+	create [-ps] [-b blocksize] [-o property=value] ... -V <size> <volume>
+	destroy [-fnpRrv] <filesystem|volume>
+	destroy [-dnpRrv] <filesystem|volume>@<snap>[%<snap>][,...]
+	destroy <filesystem|volume>#<bookmark>
+
+	snapshot|snap [-r] [-o property=value] ... <filesystem|volume>@<snap> ...
+	rollback [-rRf] <snapshot>
+	clone [-p] [-o property=value] ... <snapshot> <filesystem|volume>
+	promote <clone-filesystem>
+	rename [-f] <filesystem|volume|snapshot> <filesystem|volume|snapshot>
+	rename [-f] -p <filesystem|volume> <filesystem|volume>
+	rename -r <snapshot> <snapshot>
+	bookmark <snapshot> <bookmark>
+
+	list [-Hp] [-r|-d max] [-o property[,...]] [-s property]...
+	    [-S property]... [-t type[,...]] [filesystem|volume|snapshot] ...
+
+	set <property=value> ... <filesystem|volume|snapshot> ...
+	get [-rHp] [-d max] [-o "all" | field[,...]]
+	    [-t type[,...]] [-s source[,...]]
+	    <"all" | property[,...]> [filesystem|volume|snapshot|bookmark] ...
+	inherit [-rS] <property> <filesystem|volume|snapshot> ...
+	upgrade [-v]
+	upgrade [-r] [-V version] <-a | filesystem ...>
+	userspace [-Hinp] [-o field[,...]] [-s field] ...
+	    [-S field] ... [-t type[,...]] <filesystem|snapshot>
+	groupspace [-Hinp] [-o field[,...]] [-s field] ...
+	    [-S field] ... [-t type[,...]] <filesystem|snapshot>
+
+	mount
+	mount [-vO] [-o opts] <-a | filesystem>
+	unmount [-f] <-a | filesystem|mountpoint>
+	share <-a [nfs|smb] | filesystem>
+	unshare <-a [nfs|smb] | filesystem|mountpoint>
+
+	send [-DnPpRvLec] [-[i|I] snapshot] <snapshot>
+	send [-Lec] [-i snapshot|bookmark] <filesystem|volume|snapshot>
+	send [-nvPe] -t <receive_resume_token>
+	receive [-vnsFu] [-o <property>=<value>] ... [-x <property>] ...
+	    <filesystem|volume|snapshot>
+	receive [-vnsFu] [-o <property>=<value>] ... [-x <property>] ... 
+	    [-d | -e] <filesystem>
+	receive -A <filesystem|volume>
+
+	allow <filesystem|volume>
+	allow [-ldug] <"everyone"|user|group>[,...] <perm|@setname>[,...]
+	    <filesystem|volume>
+	allow [-ld] -e <perm|@setname>[,...] <filesystem|volume>
+	allow -c <perm|@setname>[,...] <filesystem|volume>
+	allow -s @setname <perm|@setname>[,...] <filesystem|volume>
+
+	unallow [-rldug] <"everyone"|user|group>[,...]
+	    [<perm|@setname>[,...]] <filesystem|volume>
+	unallow [-rld] -e [<perm|@setname>[,...]] <filesystem|volume>
+	unallow [-r] -c [<perm|@setname>[,...]] <filesystem|volume>
+	unallow [-r] -s @setname [<perm|@setname>[,...]] <filesystem|volume>
+
+	hold [-r] <tag> <snapshot> ...
+	holds [-r] <snapshot> ...
+	release [-r] <tag> <snapshot> ...
+	diff [-FHt] <snapshot> [snapshot|filesystem]
+
+Each dataset is of the form: pool/[dataset/]*dataset[@name]
+
+For the property list, run: zfs set|get
+
+For the delegated permission list, run: zfs allow|unallow
+]0;vagrant@lvm:/[vagrant@lvm /]$ sudo zfs add optpool cache /dev/sdb [1P[1P[1@p[1@o[1@o[1@l[C[C[C[C[C[C[C[C[C[C[C[C[1@/[1@o[1@p[1@t
+cannot open 'optpool/opt': invalid character '/' in pool name
+]0;vagrant@lvm:/[vagrant@lvm /]$ sudo zpool add optpool/opt cache /dev/sdb [1P[1P[1P[1P
+]0;vagrant@lvm:/[vagrant@lvm /]$ zpool status -v
+  pool: optpool
+ state: ONLINE
+  scan: none requested
+config:
+
+	NAME        STATE     READ WRITE CKSUM
+	optpool     ONLINE       0     0     0
+	  sda       ONLINE       0     0     0
+	cache
+	  sdb       ONLINE       0     0     0
+
+errors: No known data errors
+]0;vagrant@lvm:/[vagrant@lvm /]$ zpool status -vsudo zpool add optpool cache /dev/sdb [4@/opt[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[6Pfs add optpool[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[4@/opt[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[14P zfs list -t snapshot
+NAME                       USED  AVAIL  REFER  MOUNTPOINT
+optpool/opt@snap10112021     0B      -   144K  -
+]0;vagrant@lvm:/[vagrant@lvm /]$ sud o[K[Ko -[Krm /opt/t{1..5}
+]0;vagrant@lvm:/[vagrant@lvm /]$ ls -l /opt
+lrwxrwxrwx. 1 root root 12 Nov  7 17:51 [0m[38;5;51m/opt[0m -> [38;5;27m/optpool/opt[0m
+]0;vagrant@lvm:/[vagrant@lvm /]$ ls -l /opt/
+total 3
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t10
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t6
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t7
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t8
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t9
+]0;vagrant@lvm:/[vagrant@lvm /]$ suo[Kdo /[Kzfs rolbacklback[C[C[C[C optpool/opt/[K@snapsh[K[K[K[Kap11[K0112021
+]0;vagrant@lvm:/[vagrant@lvm /]$ sudo zfs rollback optpool/opt@snap10112021[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls -l /opt/[K
+total 5
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t1
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t10
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t2
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t3
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t4
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t5
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t6
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t7
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t8
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t9
+]0;vagrant@lvm:/[vagrant@lvm /]$ zfs [K[K[K[Ksudo zfs s[Kdestroy optpool/opt/[Ksnap[K[K[K[K@[K[K[K[K[K[K[K[K[K[K[K[Koptpool/opt@snap10112021
+]0;vagrant@lvm:/[vagrant@lvm /]$ sudo zfs destroy optpool/opt@snap10112021[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls -l /opt/[Ksudo zfs rollback optpool/opt@snap10112021[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls -l /opt/[K[Ksudo rm /opt/t{1..5} zfs list -t snapshot[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[11Pzpool status -vsudo zpool add optpool cache /dev/sdb [4@/opt[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[6Pfs add optpool[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[4@/opt[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[14P zfs list -t snapshot
+no datasets available
+]0;vagrant@lvm:/[vagrant@lvm /]$ sudo  zfs list -t snapshotzfs destroy optpool/opt@snap10112021[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls -l /opt/[Ksudo zfs rollback optpool/opt@snap10112021[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls -l /opt/[Ksudo zfs destroy optpool/opt@snap10112021[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[15P zfs list -t snapshot[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ksudo  zfs list -t snapshotzfs destroy optpool/opt@snap10112021[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls -l /opt/[Ksudo zfs rollback optpool/opt@snap10112021[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls -l /opt/[K[Ksudo rm /opt/t{1..5}[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[10Pls -l /opt
+lrwxrwxrwx. 1 root root 12 Nov  7 17:51 [0m[38;5;51m/opt[0m -> [38;5;27m/optpool/opt[0m
+]0;vagrant@lvm:/[vagrant@lvm /]$ ls -l /opt/
+total 5
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t1
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t10
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t2
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t3
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t4
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t5
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t6
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t7
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t8
+-rw-r--r--. 1 root root 0 Nov  7 17:53 t9
+]0;vagrant@lvm:/[vagrant@lvm /]$ ls -l /opt/[Ksudo  zfs list -t snapshotzfs destroy optpool/opt@snap10112021[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls -l /opt/[Ksudo zfs rollback optpool/opt@snap10112021[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls -l /opt/[K[Ksudo rm /opt/t{1..5} zfs list -t snapshot[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[11Pzpool status -vsudo zpool add optpool cache /dev/sdb [4@/opt[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[6Pfs add optpool[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[4@/opt[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[14P zfs list -t snapshot[10Pzfs list -r-r list[3Plistsnapshot optpool/opt@snap10112021[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Czfs get all optpool/opt | grep compression[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[2Psudo zfs set compression=lz4 optpool/opt[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cget all optpool/opt | grep compression[Koptpool/opt get allget all optpool/opt | grep compression[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[7Pset compression=lz4 optpool/opt[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5@sudo [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Czfs get all optpool/opt | grep compression[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Csudo zfs snapshot optpool/opt@snap10112021[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Clist[K-r listlist -r zfs list -t snapshotzfs add optpool/opt cache /dev/sdb [4P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[6@pool add optpool/opt[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[4P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[23Pzpool status -vsudo  zfs list -t snapshot[6Prm /opt/t{1..5}[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[10Pls -l /opt/sudo zfs rollback optpool/opt@snap10112021[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls -l /opt/[Ksudo zfs destroy optpool/opt@snap10112021[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[15P zfs list -t snapshot[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[16Pls -l /opt/[Ksudo zfs list
+NAME          USED  AVAIL  REFER  MOUNTPOINT
+optpool       472K  9.63G   100K  /optpool
+optpool/opt   144K  9.63G   144K  /optpool/opt
+]0;vagrant@lvm:/[vagrant@lvm /]$ df -h
+Filesystem                             Size  Used Avail Use% Mounted on
+/dev/mapper/VolGroup00-LogVol00        8.0G  803M  7.3G  10% /
+devtmpfs                               488M     0  488M   0% /dev
+tmpfs                                  496M     0  496M   0% /dev/shm
+tmpfs                                  496M  6.8M  490M   2% /run
+tmpfs                                  496M     0  496M   0% /sys/fs/cgroup
+/dev/mapper/VolGroup00-lv--home        9.8G   23M  9.2G   1% /home
+/dev/mapper/vg--var--mir-lv--var--mir  985M  174M  744M  19% /var
+/dev/sde2                             1014M   61M  954M   6% /boot
+/dev/mapper/VolGroup00-lv--snap        9.8G   37M  9.2G   1% /home/snap
+tmpfs                                  100M     0  100M   0% /run/user/1000
+optpool                                9.7G  128K  9.7G   1% /optpool
+optpool/opt                            9.7G  128K  9.7G   1% /optpool/opt
+]0;vagrant@lvm:/[vagrant@lvm /]$ l[Kpwd
+/
+]0;vagrant@lvm:/[vagrant@lvm /]$ ls -l
+total 29
+lrwxrwxrwx.   1 root    root       7 Nov  7 15:01 [0m[38;5;51mbin[0m -> [38;5;27musr/bin[0m
+dr-xr-xr-x.   5 root    root    4096 Nov  7 17:43 [38;5;27mboot[0m
+drwxr-xr-x.  19 root    root    3380 Nov  7 18:11 [38;5;27mdev[0m
+drwxr-xr-x.  78 root    root    8192 Nov  7 17:43 [38;5;27metc[0m
+drwxr-xr-x.   5 root    root    4096 Nov  7 17:25 [38;5;27mhome[0m
+lrwxrwxrwx.   1 root    root       7 Nov  7 15:01 [38;5;51mlib[0m -> [38;5;27musr/lib[0m
+lrwxrwxrwx.   1 root    root       9 Nov  7 15:01 [38;5;51mlib64[0m -> [38;5;27musr/lib64[0m
+drwxr-xr-x.   2 root    root       6 Apr 11  2018 [38;5;27mmedia[0m
+drwxr-xr-x.   2 root    root       6 Apr 11  2018 [38;5;27mmnt[0m
+lrwxrwxrwx.   1 root    root      12 Nov  7 17:51 [38;5;51mopt[0m -> [38;5;27m/optpool/opt[0m
+drwxr-xr-x.   3 root    root       3 Nov  7 17:49 [38;5;27moptpool[0m
+dr-xr-xr-x. 244 root    root       0 Nov  7 17:01 [38;5;27mproc[0m
+drwxr-xr-x.   4 vagrant vagrant  118 Nov  7 13:26 [38;5;27mprovision[0m
+dr-xr-x---.   2 root    root     158 Nov  7 14:59 [38;5;27mroot[0m
+drwxr-xr-x.  26 root    root     860 Nov  7 17:43 [38;5;27mrun[0m
+lrwxrwxrwx.   1 root    root       8 Nov  7 15:01 [38;5;51msbin[0m -> [38;5;27musr/sbin[0m
+drwxr-xr-x.   2 root    root       6 Apr 11  2018 [38;5;27msrv[0m
+dr-xr-xr-x.  13 root    root       0 Nov  7 17:01 [38;5;27msys[0m
+drwxr-xr-x.   2 root    root       6 Nov  7 15:09 [38;5;27mtemphome[0m
+drwxr-xr-x.   2 root    root       6 Nov  7 15:28 [38;5;27mtempvar[0m
+drwxrwxrwt.  10 root    root    4096 Nov  7 18:17 [48;5;10;38;5;16mtmp[0m
+drwxr-xr-x.  13 root    root     155 May 12  2018 [38;5;27musr[0m
+drwxr-xr-x.   4 vagrant vagrant  118 Nov  7 13:26 [38;5;27mvagrant[0m
+drwxr-xr-x.  19 root    root    4096 Nov  7 15:38 [38;5;27mvar[0m
+]0;vagrant@lvm:/[vagrant@lvm /]$ sudo zfsio[K[K [K[Ks [Kios[K[K[K[K[K[K[K[K[K[K[Kу[Kexit
+logout
+Connection to 127.0.0.1 closed.
+[?2004h]0;vedoff@nvf: /VML-pool/git/Otus-lvm[01;32mvedoff@nvf[00m:[01;34m/VML-pool/git/Otus-lvm[00m$ ex[K[Kexit
+[?2004lexit
+
+Script done on 2021-11-10 13:08:47+02:00 [COMMAND_EXIT_CODE="0"]

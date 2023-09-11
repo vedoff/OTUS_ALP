@@ -1,0 +1,49 @@
+## Копируем конфиг на сервер iRouter
+- name: configure bond0 to server iRouter
+  copy:
+    src: ifcfg-bond-iRouter
+    dest: /etc/sysconfig/network-scripts/ifcfg-bond0
+    owner: "root"
+    group: "root"
+    mode: '0664'
+  when: 
+    - ansible_hostname == "iRouter"
+  notify: 
+    - restart network
+
+## Копируем конфиг на сервер cRouter
+- name: configure bond0 to server cRouter
+  copy:
+    src: ifcfg-bond-cRouter
+    dest: /etc/sysconfig/network-scripts/ifcfg-bond0
+    owner: "root"
+    group: "root"
+    mode: '0664'
+  when: 
+    - ansible_hostname == "cRouter"
+  notify: 
+    - restart network
+
+## Копируем конфиг на сервер iRouter
+- name: copy configure-bond.yml to server iRouter
+  copy:
+    src: '{{item.src}}'
+    dest: '{{item.dest}}'
+  with_items:
+    - "{{bond_eth_slave}}"
+  when: 
+    - ansible_hostname == "iRouter"
+  notify: 
+    - restart network
+
+## Копируем конфиг на сервер cRouter
+- name: copy configure-bond.yml to server cRouter
+  copy:
+    src: '{{item.src}}'
+    dest: '{{item.dest}}'
+  with_items:
+    - "{{bond_eth_slave}}"
+  when: 
+    - ansible_hostname == "cRouter"
+  notify: 
+    - restart network

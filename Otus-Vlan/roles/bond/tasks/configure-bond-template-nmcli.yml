@@ -1,0 +1,27 @@
+- name: add bond0
+  nmcli: 
+    type: bond 
+    conn_name: bond0
+    ifname: bond0
+    ip4: 10.10.10.100/24
+    mode: balance-rr   
+    state: present
+  when: ansible_hostname == "iRouter"
+
+- name: try nmcli add bond-slave eth1
+  nmcli: 
+    type: bond-slave
+    conn_name: eth1-bond-slave 
+    ifname: eth1 
+    master: bond0 
+    state: present
+  when: ansible_hostname == "iRouter"
+
+- name: try nmcli add bond-slave eth2
+  nmcli: 
+    type: bond-slave
+    conn_name: eth2-bond-slave
+    ifname: eth2
+    master: bond0 
+    state: present
+  when: ansible_hostname == "iRouter"

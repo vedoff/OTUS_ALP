@@ -1,0 +1,16 @@
+---
+## Подключаем файл для конфигурирования iptables
+- name: Import install-iptables-service.yml
+  import_tasks: install-iptables-service.yml
+
+## Подключаем файл для конфигурирования default route
+- name: Import install-systctl-routers
+  import_tasks: install-sysctl-routers.yml
+
+## Подключаем файл для конфигурирования обратых маршрутов и dns
+- name: Import add-dns-routers-all.yml
+  import_tasks: add-dns-routers-all.yml
+
+  ## Подключаем файл для установки пакетов
+- name: Import install-packages.yml
+  import_tasks: install-packages.yml

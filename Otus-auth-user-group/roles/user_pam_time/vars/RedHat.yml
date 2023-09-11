@@ -1,0 +1,5 @@
+# Переменные для доступа /etc/security/time.conf
+service: '*'
+ctty: '*'
+username: 'user1'
+dtime: 'Al0800-2400' 

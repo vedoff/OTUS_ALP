@@ -1,0 +1,12 @@
+---
+#Конфигурим сервер 
+- hosts: 
+    - srv-log
+    - odoo
+    - postgre
+    - backup
+    - barman
+  become:
+    true
+  roles:
+    - rsyslog

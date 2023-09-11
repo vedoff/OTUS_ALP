@@ -1,0 +1,64 @@
+! === Указание версии FRR ===
+frr version 8.2.2
+frr defaults traditional
+! === Указываем имя машины ===
+hostname {{ hostname }}
+log syslog informational
+no ipv6 forwarding
+service integrated-vtysh-config
+!
+! ======= interface #1 =============================
+! === Добавляем информацию об интерфейсе {{ interface1 }} ===
+interface {{ interface1 }}
+! === Указываем имя интерфейса ===
+description {{ description1 }}
+! === Указываем ip-aдрес и маску (эту информацию мы получили в прошлом шаге) ===
+ip address {{ ip_address1 }}
+! === Указываем параметр игнорирования MTU ===
+ip ospf mtu-ignore
+! === Если потребуется, можно указать «стоимость» интерфейса ===
+!ip ospf cost 1000
+! === Указываем параметры hello-интервала для OSPF пакетов ===
+ip ospf hello-interval 10
+! === Указываем параметры dead-интервала для OSPF пакетов ===
+! === Должно быть кратно предыдущему значению ===
+ip ospf dead-interval 30
+!
+! ======= interface #2 ==============================
+interface {{ interface2 }}
+description {{ description1 }}
+ip address {{ ip_address2 }}
+ip ospf mtu-ignore
+!ip ospf cost 45
+ip ospf hello-interval 10
+ip ospf dead-interval 30
+!
+! ======= interface #3 ==============================
+interface {{ interface3 }}
+description {{ description2 }}
+ip address {{ ip_address3 }}
+ip ospf mtu-ignore
+!ip ospf cost 45
+ip ospf hello-interval 10
+ip ospf dead-interval 30
+!
+! ============== Начало настройки OSPF ========================
+router ospf
+! === Указываем router-id ===
+router-id {{ router_id }}
+! === Указываем сети, которые хотим анонсировать соседним роутерам ===
+network {{ network1 }} area 0
+network {{ network2 }} area 0
+network {{ network3 }} area 0
+! === Указываем адреса соседних роутеров ===
+neighbor {{ neighbor1 }}
+neighbor {{ neighbor2 }}
+! === Указываем адрес log-файла ===
+log file /var/log/frr/frr.log
+default-information originate always
+
+{% if ansible_hostname == 'Router1' %}
+ip ospf cost 1000
+{% else %}
+!ip ospf cost 45
+{% endif %}

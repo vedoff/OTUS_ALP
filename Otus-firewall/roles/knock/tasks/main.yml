@@ -1,0 +1,12 @@
+---
+## Подключаем файл для конфигурирования iptables
+- name: Import install iptables service
+  import_tasks: install-iptables-service.yml
+
+## Подключаем файл для конфигурирования iptables
+- name: Import iptables-knock-rules.yml
+  import_tasks: iptables-knock-rules.yml
+  
+  ## Подключаем файл для конфигурирования ssh
+- name: Import configure_ssh_service.yml
+  import_tasks: configure_ssh_service.yml

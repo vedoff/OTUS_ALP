@@ -1,0 +1,8 @@
+---
+# handlers file for frr
+# Перезапускам FRR и добавляем в автозагрузку
+- name: restart FRR
+  service:
+    name: frr
+    state: restarted
+    enabled: true

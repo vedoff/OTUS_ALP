@@ -1,0 +1,20 @@
+hostname: 'Router3'
+
+interface1: 'eth3'
+description1: 'r3-r1'
+ip_address1: '10.0.12.2/30'
+
+description2: 'r3-r2'
+interface2: 'eth2'
+ip_address2: '10.0.11.1/30'
+
+description3: 'net_router3'
+interface3: 'eth4'
+ip_address3: '192.168.30.1/24'
+
+router_id: '3.3.3.3'
+network1: '10.0.12.0/30'
+network2: '10.0.11.0/30'
+network3: '192.168.30.0/24'
+neighbor1: '10.0.12.1'
+neighbor2: '10.0.11.2'

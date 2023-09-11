@@ -1,0 +1,11 @@
+---
+# handlers file for team
+- name: restart NetworkManager
+  systemd:
+    name: NetworkManager
+    state: restarted
+
+- name: restart network
+  systemd:
+    name: network
+    state: restarted

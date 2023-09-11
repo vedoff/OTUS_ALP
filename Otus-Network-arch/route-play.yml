@@ -1,0 +1,9 @@
+---
+- hosts: 
+  - routers
+  - officeServer
+  - centralServer
+  become:
+    true
+  roles:
+    - router

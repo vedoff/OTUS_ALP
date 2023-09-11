@@ -1,0 +1,33 @@
+## Конфигурируем postrgesql
+## Настройка файла конфигурации postgresql.conf
+- name: configure postgresql.conf basedb01
+  template:
+    src: basedb01/postgresql.conf.j2
+    dest: /etc/postgresql/14/main/postgresql.conf
+  when:
+    - ansible_hostname == "basedb01"
+
+- name: configure pg_hba.conf.conf basedb01
+  template:
+    src: basedb01/pg_hba.conf.j2
+    dest: /etc/postgresql/14/main/pg_hba.conf
+  when:
+    - ansible_hostname == "basedb01"
+
+- name: configure postgresql.conf basedb02
+  template:
+    src: basedb02/postgresql.conf.j2
+    dest: /etc/postgresql/14/main/postgresql.conf
+  when:
+    - ansible_hostname == "basedb02"
+
+- name: configure pg_hba.conf.conf basedb02
+  template:
+    src: basedb02/pg_hba.conf.j2
+    dest: /etc/postgresql/14/main/pg_hba.conf
+  when:
+    - ansible_hostname == "basedb02"
+
+- name: restart postgresql
+  command:
+    cmd: systemctl restart postgresql

@@ -1,0 +1,6 @@
+---
+# vars file for frr
+routers:
+  - ansible_hostname == "Router1"
+  - ansible_hostname == "Router2"
+  - ansible_hostname == "Router3"

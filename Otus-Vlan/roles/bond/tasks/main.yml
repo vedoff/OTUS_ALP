@@ -1,0 +1,4 @@
+---
+# tasks file for team
+- name: import file configure vlans
+  import_tasks: configure-bond.yml

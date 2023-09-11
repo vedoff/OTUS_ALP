@@ -1,0 +1,6 @@
+[Unit]
+Description=Borg Backup
+[Timer]
+OnUnitActiveSec=60min
+[Install]
+WantedBy=timers.target

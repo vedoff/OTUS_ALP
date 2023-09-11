@@ -1,0 +1,20 @@
+---
+# handlers file for router
+- name: iptables started
+  systemd:
+    name: iptables
+    state: restarted
+    enabled: true
+
+- name: restart networking
+  systemd:
+    name: networking
+    state: restarted
+
+- name: restart network
+  systemd:
+    name: network
+    state: restarted
+
+- name: accept netplan
+  command: netplan apply && netplan try

@@ -1,0 +1,15 @@
+---
+- hosts: serv
+  become:
+    true
+  tasks:
+  - name: add user for system
+    user:
+      name: user1
+      password: '$6$Xq4HJ/2bINTtAMEh$2eLhdYUOne7VrLBlXfSvUIylm3BxS.jGIPWlE7wHhzTB9fmMtZt84VyBrSGNNpcpSto0XUe70QFQo44NYFtE01'
+      update_password: always
+#    state: present
+#    shell: /bin/bash       # Defaults to /bin/bash
+#    system: no             # Defaults to no
+#    createhome: yes        # Defaults to yes
+#    home: /home/user1      # Defaults to /home/<username>

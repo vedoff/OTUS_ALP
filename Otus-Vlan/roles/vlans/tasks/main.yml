@@ -1,0 +1,4 @@
+---
+# tasks file for vlans
+- name: import file configure vlans
+  import_tasks: configure-vlans.yml

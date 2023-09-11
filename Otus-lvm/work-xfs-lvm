@@ -1,0 +1,201 @@
+#============ Перенос lvm xfs раздела
+
+sudo yum install lvm2 xfsdump -y
+
+sudo pvcreate /dev/sdb
+
+sudo vgcreate vg_tmp_root /dev/sdb
+
+sudo lvcreate -n lv_tmp_root -l +100%FREE vg_tmp_root
+
+sudo mkfs.xfs /dev/vg_tmp_root/lv_tmp_root && sudo mount /dev/vg_tmp_root/lv_tmp_root /mnt
+
+sudo xfsdump -J - /dev/VolGroup00/LogVol00 | sudo xfsrestore -J - /mnt
+
+sudo mount --bind /proc /mnt/proc && sudo mount --bind /sys /mnt/sys && sudo mount --bind /dev/ /mnt/dev && sudo mount --bind /run /mnt/run && sudo mount --bind /boot /mnt/boot
+
+sudo chroot /mnt/
+
+grub2-mkconfig -o /boot/grub2/grub.cfg
+
+cd /boot ; for i in `ls initramfs-*img`; do dracut -v $i `echo $i|sed "s/initramfs-//g; s/.img//g"` --force; done
+
+# /boot/grub2/grub.cfg Правим rd.lvm.lv=VolGroup00/LogVol00   на   rd.lvm.lv=vg_tmp_root/lv_tmp_root
+
+sed -i 's!rd.lvm.lv=VolGroup00/LogVol00!rd.lvm.lv=vg_tmp_root/lv_tmp_root!g' /boot/grub2/grub.cfg
+
+exit
+
+sudo shutdown -r 0
+
+#----------------------------------------------------- Обратный перенос на 8G lvm-----------------------------------------------------------------------
+
+sudo lvremove /dev/VolGroup00/LogVol00 -y
+
+sudo lvcreate -n LogVol00 -L 8G VolGroup00 -y
+
+sudo mkfs.xfs /dev/VolGroup00/LogVol00 && sudo mount /dev/VolGroup00/LogVol00 /mnt
+
+sudo xfsdump -J - /dev/vg_tmp_root/lv_tmp_root | sudo xfsrestore -J - /mnt
+
+sudo mount --bind /proc /mnt/proc && sudo mount --bind /sys /mnt/sys && sudo mount --bind /dev/ /mnt/dev && sudo mount --bind /run /mnt/run && sudo mount --bind /boot /mnt/boot
+
+sudo chroot /mnt/
+
+grub2-mkconfig -o /boot/grub2/grub.cfg
+
+cd /boot ; for i in `ls initramfs-*img`; do dracut -v $i `echo $i|sed "s/initramfs-//g; s/.img//g"` --force; done
+
+#vi /boot/grub2/grub.cfg Правим lv=g_tmp_root/lv_tmp_root   на   lv=VolGroup00/LogVol00
+
+exit
+
+sudo shutdown -r 0
+
+sudo lvremove /dev/vg_tmp_root/lv_tmp_root -y
+
+sudo vgremove vg_tmp_root -y
+
+#---------------------------------------------------- Переносим var -----------------------------------------------------------------------------
+
+sudo pvcreate /dev/sd{c,d,e}
+
+sudo vgcreate vg-var-mir /dev/sd{d,e}
+
+sudo lvcreate -l 100%FREE -m1 -n lv-var-mir vg-var-mir
+
+sudo mkdir /tempvar
+
+sudo mkfs.ext4 -L var /dev/vg-var-mir/lv-var-mir && sudo mount /dev/vg-var-mir/lv-var-mir /tempvar/
+
+sudo cp -a /var/* /tempvar/
+
+sudo chmod o+w /etc/fstab
+
+sudo echo "LABEL=var /var ext4 defaults 0 0" >> /etc/fstab
+
+sudo chmod o-w /etc/fstab 
+
+sudo umount /tempvar
+
+sudo mount -a
+
+sudo mv /var /varold
+
+
+#------------------------------------------------------ Переносим home создаем раздел под снапшеты -----------------------------------------------------------------
+
+sudo vgextend VolGroup00 /dev/sd{a,b}
+
+sudo lvcreate -l 100%FREE -n lv-home VolGroup00 /dev/sdb
+
+sudo lvcreate -l 100%FREE -n lv-snap VolGroup00 /dev/sda
+
+sudo mkdir /temphome
+
+sudo mkfs.ext3 -L home /dev/VolGroup00/lv-home && sudo mount /dev/VolGroup00/lv-home /temphome/
+
+sudo cp -a /home/* /temphome/
+
+sudo chmod o+w /etc/fstab
+
+sudo echo "LABEL=home /home ext3 defaults 0 0" >> /etc/fstab
+
+sudo chmod o-w /etc/fstab 
+
+sudo umount /temphome
+
+#sudo mv /home /homeold
+
+sudo shutdown -r 0
+
+================================================= Работа с снапшетами ==========================
+
+mkdir /home/snap
+
+sudo mkfs.ext4 /dev/VolGroup00/lv-snap
+
+sudo mount /dev/VolGroup00/lv-snap /home/snap/
+
+touch /home/snap/t{1..10}
+
+sudo lvcreate -L 1G -s -n test-snap /dev/VolGroup00/lv-snap
+
+rm /home/snap/t{1..5}
+
+sudo umount /home/snap
+
+=== Откат снапшета (после отката снапшет автоматически удаляется)
+
+sudo lvconvert --merge /dev/VolGroup00/test-snap
+
+sudo mount /dev/VolGroup00/lv-snap /home/snap/
+
+
+==================================================== zfs ======================
+
+cat /etc/redhat-release
+
+sudo yum install http://download.zfsonlinux.org/epel/zfs-release.el7_5.noarch.rpm -y
+
+sudo vi /etc/yum.repos.d/zfs.repo
+
+------------------------------------- правим конфиг репозитория -----------------------
+[zfs]
+name=ZFS on Linux for EL7 - dkms
+baseurl=https://download.zfsonlinux.org/epel/7.4/$basearch/
+enabled=0
+metadata_expire=7d
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-zfsonlinux
+
+[zfs-kmod]
+name=ZFS on Linux for EL7 - kmod
+baseurl=https://download.zfsonlinux.org/epel/7.4/kmod/$basearch/
+enabled=1
+metadata_expire=7d
+gpgcheck=1 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-zfsonlinux
+
+. . .
+
+-----------------------------------------------------------------------
+
+sudo yum install zfs zfs-dracut
+
+sudo vi /etc/modules-load.d/modules.conf
+добавляем запись zfs
+
+sudo modprobe zfs
+
+sudo lsmod | grep zfs
+
+sudo zpool create -f -o ashift=12 optpool /dev/sda
+
+sudo zpool add optpool cache /dev/sdb
+
+sudo zfs create optpool/opt
+
+sudo ln -s /optpool/opt opt
+
+zfs get all optpool/opt | grep compression
+
+zfs set compression=lz4 optpool/opt
+
+sudo touch /opt/t{1..10}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

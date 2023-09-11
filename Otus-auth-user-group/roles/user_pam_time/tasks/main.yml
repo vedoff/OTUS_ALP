@@ -1,0 +1,15 @@
+---
+# tasks file for user_pam_time
+- name: Inclide vars
+  include_vars: "{{ ansible_os_family }}.yml"
+
+## Подключаем файл для конфигурирования pam модуля sshd
+- name: Import install tasks pam_modules
+  import_tasks: configure_pam_d_ssh.yml
+## Подключаем файл конфигурации security/time.conf
+- name: Import configure file for pam_modules time.conf
+  import_tasks: configure_time.yml
+
+  ## Подключаем файл создания пользователей
+#- name: add user for system
+#  import_tasks: add_users.yml

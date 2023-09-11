@@ -1,0 +1,12 @@
+# Добавляем узера на сервер пароль только в зашифрованном виде. Шифруем утилитой mkpasswd
+- name: add user1 for system
+  user:
+    name: user1
+    password: '$6$Xq4HJ/2bINTtAMEh$2eLhdYUOne7VrLBlXfSvUIylm3BxS.jGIPWlE7wHhzTB9fmMtZt84VyBrSGNNpcpSto0XUe70QFQo44NYFtE01'
+    update_password: always
+
+- name: add user2 for system
+  user:
+    name: user2
+    password: '$6$Xq4HJ/2bINTtAMEh$2eLhdYUOne7VrLBlXfSvUIylm3BxS.jGIPWlE7wHhzTB9fmMtZt84VyBrSGNNpcpSto0XUe70QFQo44NYFtE01'
+    update_password: always

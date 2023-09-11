@@ -1,0 +1,60 @@
+## Создание директорию для правил
+- name: Create folder for iptables
+  file:
+    path: /etc/iptables
+    owner: "root"
+    group: "vagrant"
+    mode: '0775'
+    state: directory
+  when: 
+    - ansible_hostname == "inetRouter"
+
+## Копирование файла в дерикторию iptables
+- name: Copy file iptables-rules.yml
+  copy:
+    src: knock-iptables.rules
+    dest: /etc/iptables
+    owner: "root"
+    group: "vagrant"
+    mode: '0664'
+  when: 
+    - ansible_hostname == "inetRouter"
+
+## Копирование файла в дерикторию iptables
+- name: Copy file add-iptables-rule.sh
+  copy:
+    src: add-iptables-rule.sh
+    dest: /etc/iptables
+    owner: "root"
+    group: "vagrant"
+    mode: '0774'
+  when: 
+    - ansible_hostname == "inetRouter"
+
+## Установка правил iptables
+- name: install rule iptables
+  command: /etc/iptables/add-iptables-rule.sh
+  when: 
+    - ansible_hostname == "inetRouter"
+
+## Копирование файла nmap-knock.sh в дерикторию vagrant
+- name: Copy file nmap-knock.sh
+  copy:
+    src: nmap-knock.sh
+    dest: /home/vagrant
+    owner: "vagrant"
+    group: "vagrant"
+    mode: '0774'
+  when: 
+    - ansible_hostname == "office"
+
+## Копирование файла run-knock.sh в дерикторию vagrant
+- name: Copy file run-knock.sh
+  copy:
+    src: run-knock.sh
+    dest: /home/vagrant
+    owner: "vagrant"
+    group: "vagrant"
+    mode: '0774'
+  when: 
+    - ansible_hostname == "office"

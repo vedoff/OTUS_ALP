@@ -1,0 +1,30 @@
+version: '3'
+services:
+# Разворачиваем первый контейнер с nginx
+  nginx:
+#    image: vedoff/nginx:v1.9
+    build: ./nginx
+    container_name: webserver
+    # мапим порт контейнера 80 на порт хоста 8088
+    ports:
+      - "8088:80"
+    networks:
+      - app-net
+    # Проецируем ресурсы с хоста 
+    volumes:
+      - ./app/:/opt/app
+      - ./nginx/site.conf:/etc/nginx/conf.d/default.conf
+# Разворачиваем второй контейнер с php
+  php:
+#    image: vedoff/php:my-fpm
+    build: ./app
+    container_name: php-fpm
+    volumes:
+      - ./app:/opt/app
+    networks:
+      - app-net
+
+# Настройка сети 
+networks:
+  app-net:
+    driver: bridge

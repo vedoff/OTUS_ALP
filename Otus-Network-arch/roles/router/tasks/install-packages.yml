@@ -1,0 +1,14 @@
+- name: install mtr Centos
+  yum:
+    name:
+      - mtr
+    state: present
+    update_cache: true
+  when: ansible_os_family == "RedHat"
+
+- name: Install mtr Debian/Ubuntu
+  apt:
+    update_cache: yes
+    name: mtr
+    state: latest
+  when: ansible_os_family == "Debian"

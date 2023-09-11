@@ -1,0 +1,16 @@
+# Отключаем запрет ассиметричного роутинга
+- name: set up asynchronous routing
+  sysctl:
+    name: net.ipv4.conf.all.rp_filter
+    value: '0'
+    state: present
+
+- name: set up OSPF
+  template:
+    src: frr-cost.j2
+    dest: /etc/frr/frr.conf
+    owner: frr
+    group: frr
+    mode: 0640
+  notify:
+    - restart FRR

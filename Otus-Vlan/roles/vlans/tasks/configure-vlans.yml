@@ -1,0 +1,62 @@
+### Конфигурируем vlan интерфейсы на машинах
+## Устанвливаеи / обновлем требуемые пакеты
+- name: Install needed network manager libs
+  package:
+    name:
+      - NetworkManager-libnm
+      - nm-connection-editor
+      - libsemanage-python
+      - policycoreutils-python
+    state: present
+
+## Добавляем vlan на tserver-01
+- name: Add vlan in interface
+  nmcli:
+    conn_name: eth1-pvid10
+    ifname: eth1-pvid10
+    type: vlan
+    vlanid: 10
+    vlandev: eth1 
+    ip4: 10.10.10.1/24
+    state: present
+  notify: restart NetworkManager
+  when: ansible_hostname == "tserver-01"
+
+## Добавляем vlan на tserver-02
+- name: Add vlan in interface
+  nmcli:
+    conn_name: eth1-pvid20
+    ifname: eth1-pvid20
+    type: vlan
+    vlanid: 20
+    vlandev: eth1 
+    ip4: 10.10.10.1/24
+    state: present
+  notify: restart NetworkManager
+  when: ansible_hostname == "tserver-02"
+
+## Добавляем vlan на tclient-01
+- name: Add vlan in interface
+  nmcli:
+    conn_name: eth1-pvid10
+    ifname: eth1-pvid10
+    type: vlan
+    vlanid: 10
+    vlandev: eth1 
+    ip4: 10.10.10.254/24
+    state: present
+  notify: restart NetworkManager
+  when: ansible_hostname == "tclient-01"
+
+## Добавляем vlan на tclient-02
+- name: Add vlan in interface
+  nmcli:
+    conn_name: eth1-pvid20
+    ifname: eth1-pvid20
+    type: vlan
+    vlanid: 20
+    vlandev: eth1 
+    ip4: 10.10.10.254/24
+    state: present
+  notify: restart NetworkManager
+  when: ansible_hostname == "tclient-02"

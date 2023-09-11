@@ -1,0 +1,5 @@
+---
+# tasks file for install-docker-compose
+## import role install docker-compose
+- name: import install-docker-compose.yml
+  import_tasks: install-docker-compose.yml

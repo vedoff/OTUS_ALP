@@ -1,0 +1,32 @@
+---
+# vars file for team
+### Формируем параметры для интерфейса bond
+nmcli_bond_ir:
+    - {conn_name: 'bond0', ifname: 'bond0', ip4: "{{bond_ip_ir}}", mode: "{{bond_mode}}", miimon: "{{bond_miimon}}"}
+     #, method6: "{{bond_ip6}}", updelay: "{{bond_updelay}}"}
+
+
+nmcli_bond_cr:
+    - {conn_name: 'bond0', ifname: 'bond0', ip4: "{{bond_ip_cr}}", mode: "{{bond_mode}}", miimon: "{{bond_miimon}}"}
+     #, method6: "{{bond_ip6}}", updelay: "{{bond_updelay}}"}
+
+### Формируем параметры для интерфейсов slave
+nmcli_bond_slave:
+    - {conn_name: 'slave-eth1', ifname: 'eth1', master: 'bond0'}
+    - {conn_name: 'slave-eth2', ifname: 'eth2', master: 'bond0'}
+
+### Параметры для интерфейсов общие
+bond_ip_ir: "10.10.11.100/24"
+bond_ip_cr: "10.10.11.101/24"
+bond_mode: "balance-rr"
+bond_miimon: "100"
+#bond_ip6: "auto"
+#bond_updelay: '0'
+
+
+bond_eth_slave:
+    - {src: 'ifcfg-eth1', dest: '{{dest_path_1}}'}
+    - {src: 'ifcfg-eth2', dest: '{{dest_path_2}}'}
+
+dest_path_1: "/etc/sysconfig/network-scripts/ifcfg-eth1"
+dest_path_2: "/etc/sysconfig/network-scripts/ifcfg-eth2"

@@ -1,0 +1,16 @@
+---
+- name: Inclide vars
+  include_vars: "{{ ansible_hostname }}.yml"
+  
+# tasks file for frr
+## Подключаем файл установки пакетов на хосты
+- name: Import install-pkg
+  import_tasks: install-pkg.yml
+
+## Подключаем файл установки пакетов frr на хосты
+- name: Import install-frr
+  import_tasks: install-frr.yml
+
+  ## Подключаем файл конфигурирования frr
+- name: Import configure-frr
+  import_tasks: configure-frr.yml

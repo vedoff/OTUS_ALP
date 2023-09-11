@@ -1,0 +1,13 @@
+---
+# handlers file for router
+- name: iptables started
+  systemd:
+    name: iptables
+    enabled: yes
+    state: started
+
+## Рестарт ssh service 
+- name: ssh restart
+  systemd:
+    name: sshd
+    state: restarted

@@ -1,0 +1,6 @@
+---
+# handlers file for user_pam_script
+- name: restart sshd
+  systemd:
+    name: sshd
+    state: restarted

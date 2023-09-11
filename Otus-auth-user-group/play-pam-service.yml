@@ -1,0 +1,6 @@
+---
+- hosts: serv
+  become:
+    true
+  roles:
+    - user-run-service

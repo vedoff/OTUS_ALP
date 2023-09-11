@@ -1,0 +1,20 @@
+## Установка пакетов
+- name: install iptables service
+  yum:
+    name:
+      - iptables
+      - iptables-services
+    state: present
+    update_cache: true
+  when: (ansible_hostname == "inetRouter")
+
+- name: copy iptables config
+  template:
+    src: centos/add-iptables-rules.j2
+    dest: /etc/sysconfig/iptables
+    owner: root
+    group: root
+    mode: 0600
+  when: (ansible_hostname == "inetRouter")
+  notify: 
+    - iptables started

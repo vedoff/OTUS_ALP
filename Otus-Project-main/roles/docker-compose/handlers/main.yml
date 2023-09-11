@@ -1,0 +1,7 @@
+---
+# handlers file for install-docker-compose
+- name: start docker
+  systemd:
+    name: docker
+    enabled: yes
+    state: started
