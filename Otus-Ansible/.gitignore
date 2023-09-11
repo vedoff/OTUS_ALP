@@ -1,0 +1,5 @@
+.vagrant/
+*.pub
+*.log
+testlpay.yaml
+*.bak

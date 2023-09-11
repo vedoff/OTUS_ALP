@@ -1,0 +1,29 @@
+---
+- hosts: all
+  gather_facts: true
+  become: true
+
+  vars:
+    system_os: "RedHat"
+
+  tasks:
+    - name: Install nginx for Centos 
+      yum:
+        name: nginx
+        state: latest
+      notify: started
+      when:
+        ansible_distribution == "CentOS"
+        #ansible_os_family == "RedHat"
+    - name: Template for NGINX
+      template:
+        src: nginx.j2
+        dest: /etc/nginx/nginx.conf
+      notify:
+        - nginx restart service
+
+  handlers:
+    - name: nginx restart service
+      systemd:
+        name: nginx
+        state: restarted
